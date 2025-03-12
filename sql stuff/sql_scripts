@@ -631,6 +631,30 @@ values (1, 247, 100, 'wifi, stationnement, café/thé', 2, 'ville', null),
 
 
 
---------------------------------
--- USABLE QUERIES AND TRIGGERS -
---------------------------------
+--------------------------------------
+-- USABLE QUERIES AND TRIGGERS -------
+--------------------------------------
+--------------------------------------
+--------------------------------------
+
+
+
+--------------------------------------------
+-- Trigger that validates email addresses --
+--------------------------------------------
+CREATE OR REPLACE FUNCTION validate_email_format()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Check if the email is valid
+  IF NEW.email NOT LIKE '%_@__%.__%' THEN
+    RAISE EXCEPTION 'Invalid email format';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Then create the trigger
+CREATE TRIGGER validate_email
+BEFORE INSERT OR UPDATE ON emailchaine
+FOR EACH ROW
+EXECUTE FUNCTION validate_email_format();
