@@ -113,6 +113,36 @@ values ('Ottawa', '123 Laurier Avenue', 'L0L 5E2'),
 
 
 
+------------------------------
+-- Populating chains' emails -
+------------------------------
+insert into emailchaine (email, nomdechaine)
+values ('chaineA@gmail.com', 'ChaineA'),
+	   ('chaineB@gmail.com', 'ChaineB'),
+	   ('chaineC@gmail.com', 'ChaineC'),
+	   ('chaineD@gmail.com', 'ChaineD'),
+	   ('chaineE@gmail.com', 'ChaineE');
+
+-------------------------------------
+-- Populating chains' phone numbers -
+-------------------------------------
+insert into telephonechaine (numerotelephone, nomdechaine)
+values ('1112223333', 'ChaineA'),
+	   ('2223334444', 'ChaineB'),
+	   ('3334445555', 'ChaineC'),
+	   ('4445556666', 'ChaineD'),
+	   ('5556667777', 'ChaineE'),
+	   ('9998887777', 'ChaineA'),
+	   ('8887776666', 'ChaineB'),
+	   ('7776665555', 'ChaineC'),
+	   ('6665554444', 'ChaineD'),
+	   ('5554443333', 'ChaineE');
+
+
+
+
+
+
 
 
 
@@ -211,49 +241,49 @@ VALUES
 -----------------------------------
 -- Populating with Hotel Branches -
 -----------------------------------
-INSERT INTO hotel(nombredechambres, numtelephone, addressid, nomDeChaine)
+INSERT INTO hotel (nombredechambres, numtelephone, addressid, nomDeChaine, email)
 VALUES 
-    (5, '6045559999', 5, 'ChaineA'),
-    (6, '4031112222', 6, 'ChaineB'),
-    (6, '7801234567', 7, 'ChaineC'),
-    (7, '2045551234', 8, 'ChaineD'),
-    (7, '4185559876', 9, 'ChaineE'),
-    (6, '6045551234', 10, 'ChaineA'),
-    (6, '4035554321', 11, 'ChaineB'),
-    (6, '7805552345', 12, 'ChaineC'),
-    (5, '2045556789', 13, 'ChaineD'),
-    (5, '4185553456', 14, 'ChaineE'),
-    (5, '6045559876', 15, 'ChaineA'),
-    (6, '4035559876', 16, 'ChaineB'),
-    (6, '7805556789', 17, 'ChaineC'),
-    (6, '2045558765', 18, 'ChaineD'),
-    (7, '4185556789', 19, 'ChaineE'),
-    (7, '6045558765', 20, 'ChaineA'),
-    (5, '4035558765', 21, 'ChaineB'),
-    (6, '7805553456', 22, 'ChaineC'),
-    (7, '2045552345', 23, 'ChaineD'),
-    (5, '4185552345', 24, 'ChaineE'),
-    (6, '6045553456', 25, 'ChaineA'),
-    (6, '4035553456', 26, 'ChaineB'),
-    (5, '7805551234', 27, 'ChaineC'),
-    (6, '2045559876', 28, 'ChaineD'),
-    (5, '4185551234', 29, 'ChaineE'),
-    (7, '6045552345', 30, 'ChaineA'),
-    (6, '4035552345', 31, 'ChaineB'),
-    (7, '7805559876', 32, 'ChaineC'),
-    (5, '2045553456', 33, 'ChaineD'),
-    (6, '4185553456', 34, 'ChaineE'),
-    (5, '6045556789', 35, 'ChaineA'),
-    (7, '4035558765', 36, 'ChaineB'),
-    (5, '7805553456', 37, 'ChaineC'),
-    (7, '2045551234', 38, 'ChaineD'),
-    (6, '4185558765', 39, 'ChaineE'),
-    (5, '6045559876', 40, 'ChaineA'),
-    (6, '6045559876', 41, 'ChaineB'),
-    (5, '4035551234', 42, 'ChaineC'),
-    (6, '7805552345', 43, 'ChaineD'),
-    (5, '2045556789', 44, 'ChaineE'),
-    (7, '4185559876', 45, 'ChaineA');
+    (5, '6045559999', 5, 'ChaineA', 'contact@chainea.com'),
+    (6, '4031112222', 6, 'ChaineB', 'info@chaineb.net'),
+    (6, '7801234567', 7, 'ChaineC', 'reservations@chainec.org'),
+    (7, '2045551234', 8, 'ChaineD', 'support@chained.com'),
+    (7, '4185559876', 9, 'ChaineE', 'hello@chainee.ca'),
+    (6, '6045551234', 10, 'ChaineA', 'services@chainea.com'),
+    (6, '4035554321', 11, 'ChaineB', 'admin@chaineb.net'),
+    (6, '7805552345', 12, 'ChaineC', 'hotel@chainec.org'),
+    (5, '2045556789', 13, 'ChaineD', 'booking@chained.com'),
+    (5, '4185553456', 14, 'ChaineE', 'reception@chainee.ca'),
+    (5, '6045559876', 15, 'ChaineA', 'welcome@chainea.com'),
+    (6, '4035559876', 16, 'ChaineB', 'support@chaineb.net'),
+    (6, '7805556789', 17, 'ChaineC', 'frontdesk@chainec.org'),
+    (6, '2045558765', 18, 'ChaineD', 'info@chained.com'),
+    (7, '4185556789', 19, 'ChaineE', 'reservations@chainee.ca'),
+    (7, '6045558765', 20, 'ChaineA', 'sales@chainea.com'),
+    (5, '4035558765', 21, 'ChaineB', 'contact@chaineb.net'),
+    (6, '7805553456', 22, 'ChaineC', 'management@chainec.org'),
+    (7, '2045552345', 23, 'ChaineD', 'hello@chained.com'),
+    (5, '4185552345', 24, 'ChaineE', 'support@chainee.ca'),
+    (6, '6045553456', 25, 'ChaineA', 'help@chainea.com'),
+    (6, '4035553456', 26, 'ChaineB', 'staff@chaineb.net'),
+    (5, '7805551234', 27, 'ChaineC', 'desk@chainec.org'),
+    (6, '2045559876', 28, 'ChaineD', 'service@chained.com'),
+    (5, '4185551234', 29, 'ChaineE', 'assist@chainee.ca'),
+    (7, '6045552345', 30, 'ChaineA', 'office@chainea.com'),
+    (6, '4035552345', 31, 'ChaineB', 'front@chaineb.net'),
+    (7, '7805559876', 32, 'ChaineC', 'booking@chainec.org'),
+    (5, '2045553456', 33, 'ChaineD', 'contactus@chained.com'),
+    (6, '4185553456', 34, 'ChaineE', 'concierge@chainee.ca'),
+    (5, '6045556789', 35, 'ChaineA', 'reservations@chainea.com'),
+    (7, '4035558765', 36, 'ChaineB', 'customer@chaineb.net'),
+    (5, '7805553456', 37, 'ChaineC', 'inquiries@chainec.org'),
+    (7, '2045551234', 38, 'ChaineD', 'welcome@chained.com'),
+    (6, '4185558765', 39, 'ChaineE', 'hotellogin@chainee.ca'),
+    (5, '6045559876', 40, 'ChaineA', 'reservations@chainea.com'),
+    (6, '6045559876', 41, 'ChaineB', 'info@chaineb.net'),
+    (5, '4035551234', 42, 'ChaineC', 'stay@chainec.org'),
+    (6, '7805552345', 43, 'ChaineD', 'roomservice@chained.com'),
+    (5, '2045556789', 44, 'ChaineE', 'guestcare@chainee.ca'),
+    (7, '4185559876', 45, 'ChaineA', 'support@chainea.com');
 
 
 
@@ -277,322 +307,310 @@ VALUES
 -- Populating with hotel rooms--
 --------------------------------
 insert into chambre
-values (1, 124, 100, 'wifi, stationnement, café/thé', 2, 'ville', null),
-(2, 124, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 124, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 124, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 124, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 125, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 125, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 125, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 125, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 125, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-(6, 125, 120, 'wifi, dejeuner', 3, 'ocean', null),
-
-(1, 126, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 126, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 126, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 126, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 126, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-(6, 126, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 127, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 127, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 127, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 127, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 127, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-(6, 127, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(7, 127, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-
-(1, 128, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 128, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 128, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 128, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 128, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-(6, 128, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(7, 128, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-
-(1, 129, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 129, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 129, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 129, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 129, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-(6, 129, 120, 'wifi, dejeuner', 3, 'ocean', null),
-
-(1, 130, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 130, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 130, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 130, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 130, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 131, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 131, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 131, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 131, 130, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 131, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 132, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 132, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 132, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 132, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 132, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 133, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 133, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 133, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 133, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 133, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 134, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 134, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 134, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 134, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 134, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 135, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 135, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 135, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 135, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 135, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 136, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 136, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 136, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 136, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 136, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 137, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 137, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 137, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 137, 130, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 137, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 138, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 138, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 138, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 138, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 138, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 139, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 139, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 139, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 139, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 139, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 140, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 140, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 140, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 140, 130, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 140, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 141, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 141, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 141, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 141, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 141, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 142, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 142, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 142, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 142, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 142, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 143, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 143, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 143, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 143, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 143, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 144, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 144, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 144, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 144, 120, 'wifi, dejeuner', 3, 'ocean', null),
-(5, 144, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 145, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 145, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 145, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 145, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 145, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 146, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 146, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 146, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 146, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 146, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 147, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 147, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 147, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 147, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 147, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 148, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 148, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 148, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 148, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 148, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 149, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 149, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 149, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 149, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 149, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 150, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 150, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 150, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 150, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 150, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 151, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 151, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 151, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 151, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 151, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 152, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 152, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 152, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 152, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 152, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 153, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 153, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 153, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 153, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 153, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 154, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 154, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 154, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 154, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 154, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 155, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 155, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 155, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 155, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 155, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 156, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 156, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 156, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 156, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 156, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 157, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 157, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 157, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 157, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 157, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 158, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 158, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
-(3, 158, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 158, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 158, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 159, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 159, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 159, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 159, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 159, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 160, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 160, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 160, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 160, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 160, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 161, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 161, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 161, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 161, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 161, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 162, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 162, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 162, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 162, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 162, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(1, 163, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 163, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
-(3, 163, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
-(4, 163, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 163, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
-
-(1, 164, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 164, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 164, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 164, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 164, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-
-(6, 125, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 126, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 127, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 127, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 128, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 128, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 129, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 130, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 131, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 135, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 136, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 137, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 138, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 138, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 139, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 139, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 141, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 142, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 142, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 144, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 145, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 147, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 149, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 149, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 150, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 151, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 151, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 153, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 155, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 155, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 157, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 157, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 158, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 160, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 162, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
-(6, 164, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 164, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null);
+values (1, 247, 100, 'wifi, stationnement, café/thé', 2, 'ville', null),
+(2, 247, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 247, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 247, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 247, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 248, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 248, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 248, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 248, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 248, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+(6, 248, 120, 'wifi, dejeuner', 3, 'ocean', null),
+
+(1, 249, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 249, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 249, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 249, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 249, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+(6, 249, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 250, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 250, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 250, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 250, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 250, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+(6, 250, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(7, 250, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+
+(1, 251, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 251, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 251, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 251, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 251, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+(6, 251, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(7, 251, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+
+(1, 252, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 252, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 252, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 252, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 252, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+(6, 252, 120, 'wifi, dejeuner', 3, 'ocean', null),
+
+(1, 253, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 253, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 253, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 253, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 253, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 254, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 254, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 254, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 254, 130, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 254, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 255, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 255, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 255, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 255, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 255, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 256, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 256, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 256, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 256, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 256, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 257, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 257, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 257, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 257, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 257, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 258, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 258, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 258, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 258, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 258, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 259, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 259, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 259, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 259, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 259, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 260, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 260, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 260, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 260, 130, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 260, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 261, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 261, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 261, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 261, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 261, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 262, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 262, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 262, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 262, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 262, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 263, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 263, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 263, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 263, 130, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 263, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 264, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 264, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 264, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 264, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 264, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 265, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 265, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 265, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 265, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 265, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 266, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 266, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 266, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 266, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 266, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 267, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 267, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 267, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 267, 120, 'wifi, dejeuner', 3, 'ocean', null),
+(5, 267, 130, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 268, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 268, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 268, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 268, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 268, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 269, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 269, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 269, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 269, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 269, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 270, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 270, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 270, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 270, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 270, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 271, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 271, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 271, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 271, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 271, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 272, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 272, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 272, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 272, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 272, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 273, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 273, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 273, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 273, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 273, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 274, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 274, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 274, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 274, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 274, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 275, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 275, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 275, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 275, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 275, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 276, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 276, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 276, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 276, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 276, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 277, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 277, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 277, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 277, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 277, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 278, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 278, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 278, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 278, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 278, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 279, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 279, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 279, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 279, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 279, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 280, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 280, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 280, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 280, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 280, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 281, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 281, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
+(3, 281, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 281, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 281, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 282, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 282, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 282, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 282, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 282, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 283, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 283, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 283, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 283, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 283, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 284, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 284, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 284, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 284, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 284, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 285, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 285, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 285, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 285, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 285, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(1, 286, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 286, 120, 'wifi, dejeuner, café/thé', 3, 'ville', null),
+(3, 286, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
+(4, 286, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 286, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
+
+(1, 287, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
+(2, 287, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
+(3, 287, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
+(4, 287, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
+(5, 287, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
+
+(6, 253, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 254, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 258, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 259, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 260, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 261, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 261, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 262, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 262, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 264, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 265, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 265, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 267, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 268, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 270, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 272, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 272, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 273, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 274, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 274, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 276, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 278, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 278, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 280, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 280, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 281, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 283, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 285, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+
+(6, 287, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
+(7, 287, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null);
 
 
 
