@@ -121,7 +121,12 @@ values ('chaineA@gmail.com', 'ChaineA'),
 	   ('chaineB@gmail.com', 'ChaineB'),
 	   ('chaineC@gmail.com', 'ChaineC'),
 	   ('chaineD@gmail.com', 'ChaineD'),
-	   ('chaineE@gmail.com', 'ChaineE');
+	   ('chaineE@gmail.com', 'ChaineE'),
+	   ('acustomersupport@hotel.com', 'ChaineA'),
+	   ('bcustomersupport@hotel.com', 'ChaineB'),
+	   ('ccustomersupport@hotel.com', 'ChaineC'),
+	   ('dcustomersupport@hotel.com', 'ChaineD'),
+	   ('ecustomersupport@hotel.com', 'ChaineE');
 
 -------------------------------------
 -- Populating chains' phone numbers -
@@ -307,7 +312,8 @@ VALUES
 -- Populating with hotel rooms--
 --------------------------------
 insert into chambre
-values (1, 247, 100, 'wifi, stationnement, café/thé', 2, 'ville', null),
+values 
+(1, 247, 100, 'wifi, stationnement, café/thé', 2, 'ville', null),
 (2, 247, 120, 'wifi, dejeuner, sèche-cheveux', 3, 'ville', null),
 (3, 247, 110, 'wifi, stationnement, animaux', 2, 'mer', null),
 (4, 247, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
@@ -620,10 +626,13 @@ values (1, 247, 100, 'wifi, stationnement, café/thé', 2, 'ville', null),
 
 
 
-
-
-
-
+-----------------------------------------
+-- To see chain's emails and locations --
+-----------------------------------------
+SELECT e.email, c.nomdechaine, a.ville
+FROM emailchaine e
+JOIN chainehoteliere c ON e.nomdechaine = c.nomdechaine
+JOIN address a ON c.addressid = a.addressid;
 
 
 
