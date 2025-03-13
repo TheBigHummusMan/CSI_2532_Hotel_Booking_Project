@@ -1,30 +1,34 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const pool = require("./db")
+const pool = require("./db");
 
 // middleware
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
 //ROUTES//
 // add the dirrerent actions that a user can do to modify the db, ex add a hotel to the chain, or book a room, etc
-/* post add to the db, can use postman to test sending requests to the server without having the frontend ready
-app.post("/route we want", async(req, res)=>{
+// post add to the db, can use postman to test sending requests to the server without having the frontend ready
+
+
+// creates a new address using a city, street name and postal code
+app.post("/address", async(req, res)=>{
     try{
-        const {add the different values for the db} = req.body
+        const {ville,adresseDeRue,codePostal} = req.body;
         // write a query
-        const newDataToBeAdded = await pool.query("INSERT INTO "name of the table" ("values being added") VALUES($1) RETURNING *",
-        [add the different values for the db to replace the $1]"
+        const newDataToBeAdded = await pool.query("INSERT INTO address (ville, adresseDeRue, codePostal) VALUES ($1, $2, $3) RETURNING *",
+            [ville,adresseDeRue,codePostal]
         );
 
         // data to be returned
-        res.json(newDataToBeAdded.rows[index])
-    } catch(err{
+        console.log(newDataToBeAdded.rows[0]);
+        res.json(newDataToBeAdded.rows[0]);
+    } catch(err){
         console.error(err.message);
     }
-    //});
-*/
+    });
+
 
 // get data from the db
 /*
