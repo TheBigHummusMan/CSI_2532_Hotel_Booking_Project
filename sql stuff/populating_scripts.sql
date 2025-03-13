@@ -1,6 +1,7 @@
 -------------------
 -- Table Creation -
 -------------------
+-- can create
 CREATE TABLE Address (
     addressID SERIAL PRIMARY KEY,
     ville VARCHAR(255) NOT NULL,
@@ -14,11 +15,15 @@ CREATE TABLE ChaineHoteliere (
     rating NUMERIC(2,1),
     FOREIGN KEY (addressID) REFERENCES address(addressID) on delete cascade
 );
+
+-- can create
 create table EmailChaine (
 	email varchar(255) not null primary key,
 	nomDeChaine varchar(255) not null,
 	foreign key (nomDeChaine) references ChaineHoteliere(nomDeChaine) on delete cascade on update cascade
 );
+
+-- can create
 create table TelephoneChaine (
 	numeroTelephone varchar(255) not null PRIMARY KEY,
     nomDeChaine varchar(255) not null,
@@ -42,6 +47,8 @@ create table employe (
 	foreign key (addressID) references address(addressID) on delete cascade,
 	foreign key (hotelID) references hotel(hotelID)
 );
+
+-- can create
 create table client (
 	nas int check (nas > 0) primary key,
 	nom varchar(255) not null,
@@ -59,6 +66,8 @@ create table chambre (
 	foreign key (hotelID) references hotel(hotelID),
 	primary key (numDeChambre, hotelID)
 );
+
+-- can create
 create table location (
 	locationID serial primary key,
 	clientID int check (clientID >= 0),
@@ -72,17 +81,17 @@ create table location (
 	foreign key (hotelID) references hotel(hotelID),
 	foreign key (numDeChambre, hotelID) references chambre(numDeChambre, hotelID)
 );
+
+-- can create
 create table reservation (
 	reservationID serial primary key,
 	clientID int check (clientID >= 0),
-	employeeID int check (employeeID >= 0),
 	hotelID int check (hotelID >= 0),
 	numDeChambre int check (numDeChambre > 0),
 	checkinDate timestamp,
 	checkoutDate timestamp,
 	dateReservation timestamp,
 	foreign key (clientID) references client(NAS),
-	foreign key (employeeID) references employe(employeeID),
 	foreign key (hotelID) references hotel(hotelID),
 	foreign key (numDeChambre, hotelID) references chambre(numDeChambre, hotelID)
 );
@@ -153,7 +162,7 @@ values ('1112223333', 'ChaineA'),
 
 
 ------------------------------------------------------------------------------------------------------------------------------
--- Populating with addresses for Office branches -----------------------------------------------------------------------------
+-- Populating with addresses for Hotel branches -----------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO Address (ville, adresseDeRue, codePostal) 
 VALUES 
@@ -321,3 +330,30 @@ FOR EACH ROW EXECUTE FUNCTION validate_checkout_date();
 CREATE TRIGGER trigger_validate_checkout_date_reservation
 BEFORE INSERT OR UPDATE ON reservation
 FOR EACH ROW EXECUTE FUNCTION validate_checkout_date();
+
+
+
+----------------------------------------------------------------------------------
+-- Trigger that makes sure that there are no duplicate phone numbers -------------
+----------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION prevent_duplicate_phone_numbers()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM TelephoneChaine
+        WHERE numeroTelephone = NEW.numeroTelephone
+    ) THEN
+        RAISE EXCEPTION 'Phone number already exists.';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_prevent_duplicate_phone_numbers
+BEFORE INSERT OR UPDATE ON TelephoneChaine
+FOR EACH ROW EXECUTE FUNCTION prevent_duplicate_phone_numbers();
+
+
+
+
