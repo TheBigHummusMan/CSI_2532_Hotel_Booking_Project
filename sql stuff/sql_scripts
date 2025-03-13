@@ -20,15 +20,18 @@ create table EmailChaine (
 	foreign key (nomDeChaine) references ChaineHoteliere(nomDeChaine) on delete cascade on update cascade
 );
 create table TelephoneChaine (
-	numeroTelephone int check (numeroTelephone >= 0) PRIMARY KEY,
+	numeroTelephone varchar(255) not null PRIMARY KEY,
     nomDeChaine varchar(255) not null,
     foreign key (nomDeChaine) REFERENCES ChaineHoteliere(nomDeChaine) on delete cascade on update cascade
 );
 create table hotel (
 	hotelID serial primary key,
 	nombreDeChambres int check (nombreDeChambres >= 0),
-	numTelephone int check (numTelephone > 0),
+	numTelephone varchar(255) not null,
 	addressID int,
+	nomDeChaine varchar(255) not null,
+	email varchar(255) not null,
+	foreign key (nomDeChaine) references ChaineHoteliere(nomDeChaine) on delete cascade on update cascade,
 	foreign key (addressID) references Address(addressID) on delete cascade
 );
 create table employe (
@@ -112,6 +115,15 @@ values ('Ottawa', '123 Laurier Avenue', 'L0L 5E2'),
 		('Vancouver', '126 Train Way', 'F9C 0C1');
 
 
+---------------------------------
+-- Populating with Hotel Chains -
+---------------------------------
+insert into ChaineHoteliere (nomdechaine, nombredehotels, addressid, rating) 
+values ('ChaineA', 8, 1, 4.5),
+	   ('ChaineB', 9, 2, 2.3),
+	   ('ChaineC', 10, 3, 1.7),
+	   ('ChaineD', 9, 4, 4.9),
+	   ('ChaineE', 8, 5, 4.1);
 
 ------------------------------
 -- Populating chains' emails -
@@ -151,15 +163,6 @@ values ('1112223333', 'ChaineA'),
 
 
 
----------------------------------
--- Populating with Hotel Chains -
----------------------------------
-insert into ChaineHoteliere (nomdechaine, nombredehotels, addressid, rating, email) 
-values ('ChaineA', 8, 1, 4.5),
-	   ('ChaineB', 9, 2, 2.3),
-	   ('ChaineC', 10, 3, 1.7),
-	   ('ChaineD', 9, 4, 4.9),
-	   ('ChaineE', 8, 5, 4.1);
 
 
 
