@@ -30,30 +30,32 @@ app.post("/address", async(req, res)=>{
     });
 
 
-// get data from the db
-/*
-app.get("/path",async(req, res)=>{
+// get all the addresses
+app.get("/address",async(req, res)=>{
     try{
-        const tableToGet = await pool.query("SELECT * FROM table");
+        const address = await pool.query("SELECT * FROM address");
         // returns all the table rows
-        res.json(tableToGet.rows)
+        res.json(address.rows)
     } catch(err) {
         console.error(err.message)
     }
     });
-*/
 
-//get a table 
-/*
-app.get("/path/:primary key", ansync(req, res) => {
+
+//get the address from a key, in this case, the city name
+app.get("/address/:ville", async(req, res) => {
     try {
-        console.log(req.params);
+        const {ville} = req.params;
+        // finds address with a partial city name
+        const address = await pool.query("SELECT * FROM address WHERE ville ILIKE $1",[`%${ville}%`]);
+
+        res.json(address.rows)
     } catch(err) {
         console.error(err.message);
     }
     });
 
- */
+
 
 app.listen(5000, () => {
     console.log("server has started on port 5000");
