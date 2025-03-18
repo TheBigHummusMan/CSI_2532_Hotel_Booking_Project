@@ -12,6 +12,7 @@ app.use(express.json());
 // post add to the db, can use postman to test sending requests to the server without having the frontend ready
 
 
+//next 3 was for me to get familiarised with how do run a search, they can be mostly removed
 // creates a new address using a city, street name and postal code
 app.post("/address", async(req, res)=>{
     try{
@@ -53,19 +54,10 @@ app.get("/address/:ville", async(req, res) => {
     } catch(err) {
         console.error(err.message);
     }
-    });
-
-// gets all hotels from the db
-/* not required because the next get method can return without any parameters
-app.get("/search/hotel",async(req, res)=>{
-    try {
-        const hotel = await pool.query("SELECT * FROM hotel");
-        res.json(hotel.rows);
-    } catch (err) {
-        console.error(err.message);
-    }
 });
-*/
+// end of started methods
+
+
 // get the hotel based off of the city name
 app.get("/search/hotel", async(req, res)=>{
     try {
@@ -83,6 +75,7 @@ app.get("/search/hotel", async(req, res)=>{
         let params = [];
         let paramIndex = 1;
 
+        // these if statements check to see if the parameter exists and adds to the query accordingly
         if (ville){
             queryStr+=` AND a.ville ILIKE $${paramIndex}`;
             params.push(`%${ville}%`);
@@ -137,6 +130,7 @@ app.get("/search/chambre", async(req, res)=>{
         let params = [];
         let paramIndex = 1;
 
+        // these if statements check to see if the parameter exists and adds to the query accordingly
         if (ville){
             queryStr+=` AND a.ville ILIKE $${paramIndex}`;
             params.push(`%${ville}%`);
@@ -164,26 +158,18 @@ app.get("/search/chambre", async(req, res)=>{
         //console.log("Generated SQL Query:", queryStr);
         //console.log("Query Parameters:", params);
 
-        // old query to onlu get based off of city name, const hotel = await pool.query("SELECT h.* FROM hotel h JOIN Address a ON h.addressID = a.addressID WHERE a.ville ILIKE $1", [`%${ville}%`]);
+        // send back the room
         const chambre = await pool.query(queryStr, params);
         res.json(chambre.rows);
 
+    // error handleing
     } catch (err) {
         console.error(err.message)
     }
 });
 
-/* you never need to edit an adress but here is what it would look like
-app.post("/address/:"), async(req,res)=>{
-    try {
-        
-    } catch (err) {
-        console.error(err.message);
-    }
-}
-*/
 
-
+// listens to port 5000 where the server is being locally hosted
 app.listen(5000, () => {
     console.log("server has started on port 5000");
 });
