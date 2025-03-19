@@ -51,8 +51,10 @@ create table employe (
 -- can create
 create table client (
 	nas int check (nas > 0) primary key,
+    password varchar(255) not null,
+    email varchar(255) not null,
 	nom varchar(255) not null,
-	addressID int,
+	addressID int not null,
 	foreign key (addressID) references address(addressID) on delete cascade
 );
 create table chambre (

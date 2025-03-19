@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
+express.Router
 const cors = require("cors");
-const pool = require("./db");
+const pool = require("./config/db");
 
 // middleware
 app.use(cors());
@@ -11,162 +12,16 @@ app.use(express.json());
 // add the dirrerent actions that a user can do to modify the db, ex add a hotel to the chain, or book a room, etc
 // post add to the db, can use postman to test sending requests to the server without having the frontend ready
 
-
-//next 3 was for me to get familiarised with how do run a search, they can be mostly removed
-// creates a new address using a city, street name and postal code
-app.post("/address", async(req, res)=>{
-    try{
-        const {ville,adresseDeRue,codePostal} = req.body;
-        // write a query
-        const newDataToBeAdded = await pool.query("INSERT INTO address (ville, adresseDeRue, codePostal) VALUES ($1, $2, $3) RETURNING *",
-            [ville,adresseDeRue,codePostal]
-        );
-
-        // data to be returned
-        console.log(newDataToBeAdded.rows[0]);
-        res.json(newDataToBeAdded.rows[0]);
-    } catch(err){
-        console.error(err.message);
-    }
-    });
+const addressRoutes = require("./routes/addressRoutes");
+const hotelRoutes = require("./routes/hotelRoutes");
+const roomRoutes = require("./routes/roomRoutes");
 
 
-// get all the addresses
-app.get("/address",async(req, res)=>{
-    try{
-        const address = await pool.query("SELECT * FROM address");
-        // returns all the table rows
-        res.json(address.rows);
-    } catch(err) {
-        console.error(err.message)
-    }
-    });
+app.use("/address", addressRoutes);
+app.use("/", hotelRoutes);
+app.use("/", roomRoutes);
 
 
-//get the address from a key, in this case, the city name
-app.get("/address/:ville", async(req, res) => {
-    try {
-        const {ville} = req.params;
-        // finds address with a partial city name
-        const address = await pool.query("SELECT * FROM address WHERE ville ILIKE $1",[`%${ville}%`]);
-
-        res.json(address.rows);
-    } catch(err) {
-        console.error(err.message);
-    }
-});
-// end of started methods
-
-
-// get the hotel based off of the city name
-app.get("/search/hotel", async(req, res)=>{
-    try {
-        console.log("Received query parameters for hotel search:", req.query);
-
-        let queryStr = `
-            SELECT h.*, a.ville, a.adresseDeRue, c.rating 
-            FROM hotel h
-            JOIN address a ON h.addressID = a.addressID
-            JOIN chainehoteliere c ON h.nomDeChaine = c.nomDeChaine
-            WHERE 1=1
-        `;
-
-        let {ville, minRating,maxRating,adresseDeRue}=req.query;
-        let params = [];
-        let paramIndex = 1;
-
-        // these if statements check to see if the parameter exists and adds to the query accordingly
-        if (ville){
-            queryStr+=` AND a.ville ILIKE $${paramIndex}`;
-            params.push(`%${ville}%`);
-            paramIndex++;
-        }
-        if (minRating){
-            console.log("visited")
-            queryStr += ` AND c.rating >= $${paramIndex}`;
-            params.push(parseFloat(minRating));
-            paramIndex++;
-        }
-        if (maxRating){
-            console.log("visited")
-            queryStr += ` AND c.rating <= $${paramIndex}`;
-            params.push(parseFloat(maxRating));
-            paramIndex++;
-        }
-        if (adresseDeRue){
-            queryStr+=` AND a.adresseDeRue ILIKE $${paramIndex}`;
-            params.push(`%${adresseDeRue}%`);
-            paramIndex++;
-        }
-
-        //debub logs
-        //console.log("Generated SQL Query:", queryStr);
-        //console.log("Query Parameters:", params);
-
-        // old query to onlu get based off of city name, const hotel = await pool.query("SELECT h.* FROM hotel h JOIN Address a ON h.addressID = a.addressID WHERE a.ville ILIKE $1", [`%${ville}%`]);
-        const hotels = await pool.query(queryStr, params);
-        res.json(hotels.rows);
-
-    } catch (err) {
-        console.error(err.message)
-    }
-});
-
-// get the room based off of the same criteria but gets all the rooms instead
-app.get("/search/chambre", async(req, res)=>{
-    try {
-        console.log("Received query parameters for rooms:", req.query);
-
-        let queryStr = `
-            SELECT r.*
-            FROM chambre r
-            JOIN hotel h ON h.hotelid = r.hotelid
-            JOIN address a ON h.addressID = a.addressID
-            JOIN chainehoteliere c ON h.nomDeChaine = c.nomDeChaine
-            WHERE 1=1
-        `;
-
-        let {ville, minRating,maxRating,adresseDeRue}=req.query;
-        let params = [];
-        let paramIndex = 1;
-
-        // these if statements check to see if the parameter exists and adds to the query accordingly
-        if (ville){
-            queryStr+=` AND a.ville ILIKE $${paramIndex}`;
-            params.push(`%${ville}%`);
-            paramIndex++;
-        }
-        if (minRating){
-            console.log("visited")
-            queryStr += ` AND c.rating >= $${paramIndex}`;
-            params.push(parseFloat(minRating));
-            paramIndex++;
-        }
-        if (maxRating){
-            console.log("visited")
-            queryStr += ` AND c.rating <= $${paramIndex}`;
-            params.push(parseFloat(maxRating));
-            paramIndex++;
-        }
-        if (adresseDeRue){
-            queryStr+=` AND a.adresseDeRue ILIKE $${paramIndex}`;
-            params.push(`%${adresseDeRue}%`);
-            paramIndex++;
-        }
-
-        //debub logs
-        //console.log("Generated SQL Query:", queryStr);
-        //console.log("Query Parameters:", params);
-
-        // send back the room
-        const chambre = await pool.query(queryStr, params);
-        res.json(chambre.rows);
-
-    // error handleing
-    } catch (err) {
-        console.error(err.message)
-    }
-});
 
 
 // listens to port 5000 where the server is being locally hosted
