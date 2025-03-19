@@ -3,7 +3,8 @@ const pool = require("../config/db");
 // get the hotel based off of the city name
 const searchHotels = async(req, res)=>{
     try {
-        console.log("Received query parameters for hotel search:", req.query);
+        // debug for query parameters
+        //console.log("Received query parameters for hotel search:", req.query);
 
         let queryStr = `
             SELECT h.*, a.ville, a.adresseDeRue, c.rating 
@@ -24,13 +25,11 @@ const searchHotels = async(req, res)=>{
             paramIndex++;
         }
         if (minRating){
-            console.log("visited")
             queryStr += ` AND c.rating >= $${paramIndex}`;
             params.push(parseFloat(minRating));
             paramIndex++;
         }
         if (maxRating){
-            console.log("visited")
             queryStr += ` AND c.rating <= $${paramIndex}`;
             params.push(parseFloat(maxRating));
             paramIndex++;

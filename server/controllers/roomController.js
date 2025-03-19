@@ -4,7 +4,8 @@ const pool = require("../config/db");
 // get the room based off of the same criteria but gets all the rooms instead
 const searchRoom = async(req, res)=>{
     try {
-        console.log("Received query parameters for rooms:", req.query);
+        // debug for query parameters
+        //console.log("Received query parameters for rooms:", req.query);
 
         let queryStr = `
             SELECT r.*
@@ -26,13 +27,11 @@ const searchRoom = async(req, res)=>{
             paramIndex++;
         }
         if (minRating){
-            console.log("visited")
             queryStr += ` AND c.rating >= $${paramIndex}`;
             params.push(parseFloat(minRating));
             paramIndex++;
         }
         if (maxRating){
-            console.log("visited")
             queryStr += ` AND c.rating <= $${paramIndex}`;
             params.push(parseFloat(maxRating));
             paramIndex++;
