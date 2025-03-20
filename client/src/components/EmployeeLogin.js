@@ -58,30 +58,67 @@ const EmployeeLogin = ({setAuth}) => {
                 </Link>
             </div>
 
-            <h1 className='text-center  my-5'>Employee Login</h1>
-            <form onSubmit={onSubmitForm}>
-                <input
-                 type="email"
-                 name = 'email' 
-                 placeholder="email" 
-                 className='form-control my-3' 
-                 value={email} 
-                 onChange={e => onChange(e)}
-                />
-                <input
-                 type="password" 
-                 name = 'password' 
-                 placeholder="password" 
-                 className='form-control my-3'
-                 value={password} 
-                 onChange={e => onChange(e)}
-                />
-                <button className='btn btn-success btn-block'>Submit</button>
-            </form>
-            <Link to='/register'>Register Now</Link>
+            {/* Login Form Card */}
+            <div className="container mt-5">
+                <div className="row justify-content-center">
+                <div className="col-md-4">
+                    <div
+                    className="card shadow-lg"
+                    style={{
+                        border: '4px solid #ced4da', // Double the border thickness
+                        borderRadius: '15px', // Slightly rounded corners
+                    }}
+                    >
+                    <div
+                        className="card-body"
+                        style={{
+                        padding: '80px 30px', // Increase padding for taller appearance
+                        }}
+                    >
+                        <h4 className="card-title text-center mb-4">Employee Login</h4>
+                        <form onSubmit={onSubmitForm}>
+                        <div className="mb-3">
+                            <input
+                            type="email"
+                            name="email"
+                            className="form-control"
+                            placeholder="Email"
+                            value={email}
+                            onChange={onChange}
+                            required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <input
+                            type="password"
+                            name="password"
+                            className="form-control"
+                            placeholder="Password"
+                            value={password}
+                            onChange={onChange}
+                            required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="btn btn-success w-100 mb-3"
+                        >
+                            Login
+                        </button>
+                        <div className="text-center">
+                            <Link to="/forgot-password" className="small">
+                            Forgot password?
+                            </Link>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
             <ToastContainer/>
         </Fragment>
-    )
+    );
 }
 
 export default EmployeeLogin;

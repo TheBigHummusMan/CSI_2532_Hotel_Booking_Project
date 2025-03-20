@@ -2,8 +2,7 @@ import React, {Fragment, useState, useEffect} from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
+
 
 
 // importing components
@@ -11,6 +10,8 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Register from './components/Register';
 import EmployeeLogin from './components/EmployeeLogin';
+import Search from './components/Search';
+import Reservations from './components/Reservations';
 
 
 const App = () => {
@@ -53,7 +54,9 @@ const App = () => {
             <Route path = '/employeelogin' element = {!isAuthenticated ? <EmployeeLogin setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
             <Route path = '/register' element = {!isAuthenticated ? <Register setAuth={setAuth} /> : <Navigate to='/login'/>}/> 
             {/* <Route path = '/dashboard' element = {isAuthenticated ? <Dashboard setAuth={setAuth} /> : <Navigate to = '/login'/>}/>*/} 
-            <Route path = '/dashboard'/>
+            <Route path = '/dashboard' element = {<Dashboard setAuth={setAuth}/>}/>
+            <Route path = '/reservations' element = {<Reservations />}/>
+            <Route path = '/search' element = {<Search />}/>
           </Routes>
         </div>
       </Router>
