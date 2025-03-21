@@ -52,12 +52,12 @@ const Dashboard = ({setAuth}) => {
           </button>
   
           {/* View Reservations Button */}
-          <button className="btn btn-success w-100 mx-5" onClick={() => navigate('/reservations')}>
+          <button className="btn btn-dark w-100 mx-5" onClick={() => navigate('/reservations')}>
             View My Reservations
           </button>
   
           {/* Start Search Button */}
-          <button className="btn btn-primary w-100" onClick={() => navigate('/search')}>
+          <button className="btn btn-dark w-100" onClick={() => navigate('/search')}>
             Start Search
           </button>
         </div>

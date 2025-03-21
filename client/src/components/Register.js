@@ -143,7 +143,7 @@ const Register = ({ setAuth }) => {
         />
 
         {/* Submit Button */}
-        <button className="btn btn-success w-100">Submit</button>
+        <button className="btn btn-dark w-100">Submit</button>
       </form>
 
       {/* Login Link */}
