@@ -31,9 +31,9 @@ create table TelephoneChaine (
 );
 create table hotel (
 	hotelID serial primary key,
-	nombreDeChambres int check (nombreDeChambres >= 0),
+	nombreDeChambres decimal(10,2) check (nombreDeChambres >= 0),
 	numTelephone varchar(255) not null,
-	addressID int,
+	addressID int not null,
 	nomDeChaine varchar(255) not null,
 	email varchar(255) not null,
 	foreign key (nomDeChaine) references ChaineHoteliere(nomDeChaine) on delete cascade on update cascade,
@@ -41,9 +41,11 @@ create table hotel (
 );
 create table employe (
 	employeeID serial primary key,
+    email varchar(255) not null,
+    password varchar(255) not null,
 	nom varchar(255) not null,
-	addressID int,
-	hotelID int check (hotelID >= 0),
+	addressID int not null,
+	hotelID int check (hotelID >= 0) not null,
 	foreign key (addressID) references address(addressID) on delete cascade,
 	foreign key (hotelID) references hotel(hotelID)
 );
@@ -51,8 +53,10 @@ create table employe (
 -- can create
 create table client (
 	nas int check (nas > 0) primary key,
+    email varchar(255) not null,
+    password varchar(255) not null,
 	nom varchar(255) not null,
-	addressID int,
+	addressID int not null,
 	foreign key (addressID) references address(addressID) on delete cascade
 );
 create table chambre (
