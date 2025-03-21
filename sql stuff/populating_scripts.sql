@@ -31,7 +31,7 @@ create table TelephoneChaine (
 );
 create table hotel (
 	hotelID serial primary key,
-	nombreDeChambres decimal(10,2) check (nombreDeChambres >= 0),
+	nombreDeChambres int check (nombreDeChambres >= 0),
 	numTelephone varchar(255) not null,
 	addressID int not null,
 	nomDeChaine varchar(255) not null,
@@ -62,7 +62,7 @@ create table client (
 create table chambre (
 	numDeChambre int check (numDeChambre > 0),
 	hotelID int check (hotelID >= 0),
-	prix int check (prix >= 0),
+	prix decimal(10,2) check (prix >= 0),
 	commodites varchar(255) not null,
 	capacite int check (capacite > 0),
 	vue varchar(255),
