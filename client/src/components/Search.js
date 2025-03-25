@@ -5,7 +5,7 @@ const Search = () => {
   const [city, setCity] = useState('');
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
-  const [minCapacity, setMinCapacity] = useState('');
+  const [capacity, setCapacity] = useState('');
   const [minRating, setMinRating] = useState(''); // Minimum rating filter
   const [maxRating, setMaxRating] = useState(''); // Maximum rating filter
   const [minPrice, setMinPrice] = useState(''); // Minimum price filter
@@ -32,38 +32,41 @@ const Search = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    // Perform search logic here
+    // debug to see parameter are getting passed
     console.log('Searching for rooms:', {
       city,
       checkInDate,
       checkOutDate,
-      minCapacity,
+      capacity,
       minRating,
       maxRating,
       minPrice,
       maxPrice,
     });
 
-    // Example: Fetch data from the backend with filters
+    // get rooms from backend
     try {
-      const response = await fetch('http://localhost:5000/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          city,
-          checkInDate,
-          checkOutDate,
-          minCapacity: parseInt(minCapacity, 10),
-          minRating: parseFloat(minRating), // Ensure minRating is a float
-          maxRating: parseFloat(maxRating), // Ensure maxRating is a float
-          minPrice: parseFloat(minPrice), // Ensure minPrice is a float
-          maxPrice: parseFloat(maxPrice), // Ensure maxPrice is a float
-        }),
+      const queryParams = new URLSearchParams({
+        ville: city, // Backend expects 'ville', so ensure the key matches
+        checkinDate: new Date(checkInDate).toISOString(), 
+        checkoutDate: new Date(checkOutDate).toISOString(),
+        capacity,
+        minRating,
+        maxRating,
+        minPrice,
+        maxPrice
+      }).toString();
+
+
+      console.log(queryParams);
+
+      //console.log("Generated Query URL:", `http://localhost:5000/chambre/search?${queryParams}`); // Debug
+      
+      const response = await fetch(`http://localhost:5000/chambre/search?${queryParams}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
       });
-
-      const data = await response.json();
-      console.log('Search Results:', data);
-
+      
       // Handle displaying results here (you can store them in state or pass them to another component)
     } catch (err) {
       console.error('Error fetching search results:', err.message);
@@ -164,8 +167,8 @@ const Search = () => {
             type="number"
             className="form-control"
             placeholder="e.g., 2"
-            value={minCapacity}
-            onChange={(e) => setMinCapacity(e.target.value)}
+            value={capacity}
+            onChange={(e) => setCapacity(e.target.value)}
             min="1" // Ensure the minimum value is at least 1
           />
         </div>
