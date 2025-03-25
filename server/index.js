@@ -14,11 +14,12 @@ app.use(express.json());
 
 const hotelRoutes = require("./routes/hotelRoutes");
 const roomRoutes = require("./routes/roomRoutes");
+const reservationRouter = require("./routes/reservationRoutes");
 
 
 app.use("/", hotelRoutes);
 app.use("/", roomRoutes);
-
+app.use("/", reservationRouter);
 
 // listens to port 5000 where the server is being locally hosted
 app.listen(5000, () => {
