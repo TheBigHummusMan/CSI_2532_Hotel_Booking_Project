@@ -14,8 +14,8 @@ const EmployeeLogin = ({setAuth}) => {
 
 
     const onChange= (e) => {
-        setInputs({... inputs, [e.target.name]: e.target.value});
-    }
+        setInputs({ ...inputs, [e.target.name]: e.target.value});
+    };
 
     const onSubmitForm = async(e) => {
         e.preventDefault();
