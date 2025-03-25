@@ -359,5 +359,8 @@ BEFORE INSERT OR UPDATE ON TelephoneChaine
 FOR EACH ROW EXECUTE FUNCTION prevent_duplicate_phone_numbers();
 
 
+------------
+--Indexing--
+------------
 
-
+CREATE INDEX idx_reservation_dates ON reservation (hotelID, numDeChambre, checkinDate, checkoutDate);
