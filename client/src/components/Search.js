@@ -45,7 +45,7 @@ const Search = () => {
         minRating: minRating || '',
         maxRating: maxRating || '',
         minPrice: minPrice || '',
-        maxPrice: maxPrice || '',
+        maxPrice: maxPrice || ''
       }).toString();
 
       console.log('Generated Query Parameters:', queryParams);
@@ -230,7 +230,7 @@ const Search = () => {
             />
           </div>
         </div>
-
+        
         <button className="btn btn-dark w-100" type="submit">
           Search
         </button>
@@ -250,25 +250,17 @@ const Search = () => {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>Room Number</th>
-                <th>Hotel ID</th>
+                <th>Hotel Chain</th>
                 <th>Price (CAD)</th>
-                <th>Amenities</th>
                 <th>Capacity</th>
-                <th>View</th>
-                <th>Damages</th>
               </tr>
             </thead>
             <tbody>
               {availableRooms.map((room) => (
                 <tr key={room.numdechambre}>
-                  <td>{room.numdechambre}</td>
-                  <td>{room.hotelid}</td>
+                  <td>{room.nomdechaine}</td>
                   <td>{room.prix}</td>
-                  <td>{room.commodites}</td>
                   <td>{room.capacite}</td>
-                  <td>{room.vue}</td>
-                  <td>{room.domages || 'None'}</td>
                 </tr>
               ))}
             </tbody>
