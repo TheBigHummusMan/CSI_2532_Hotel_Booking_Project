@@ -7,7 +7,7 @@ const pool = require("../config/db");
 router.get("/chambre/search", async(req, res)=>{
     try {
         // debug for query parameters
-        //console.log("Received query parameters for rooms:", req.query);
+        console.log("Received query parameters for rooms:", req.query);
 
         let queryStr = `
             SELECT r.*
@@ -65,22 +65,23 @@ router.get("/chambre/search", async(req, res)=>{
                     SELECT 1 FROM reservation res
                     WHERE res.hotelID = r.hotelID
                     AND res.numDeChambre = r.numDeChambre
-                    AND res.checkinDate < $${paramIndex + 1}
-                    AND res.checkoutDate > $${paramIndex}
+                    AND res.checkinDate < $${paramIndex}
+                    AND res.checkoutDate > $${paramIndex + 1}
                 )
             `;
-            params.push(checkoutDate, checkinDate); // Ensure correct order
+            params.push(new Date(checkinDate), new Date(checkoutDate)); //Convert to Date
+            paramIndex+=2;
         }
 
 
         // debub logs
-        //console.log("Generated SQL Query:", queryStr);
+        console.log("Generated SQL Query:", queryStr);
         //console.log("Query Parameters:", params);
 
         // send back the room
         const chambre = await pool.query(queryStr, params);
         res.json(chambre.rows);
-
+        console.log(chambre.rows);
     // error handleing
     } catch (err) {
         console.error(err.message)
