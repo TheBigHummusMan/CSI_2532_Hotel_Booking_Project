@@ -94,9 +94,9 @@ create table reservation (
 	numDeChambre int check (numDeChambre > 0),
 	checkinDate timestamp,
 	checkoutDate timestamp,
-	dateReservation timestamp,
+	dateReservation timestamp DEFAULT now(),
 	foreign key (clientID) references client(NAS),
-	foreign key (hotelID) references hotel(hotelID),
+	foreign key (hotelID) references hotel(hotelID),s
 	foreign key (numDeChambre, hotelID) references chambre(numDeChambre, hotelID)
 );
 

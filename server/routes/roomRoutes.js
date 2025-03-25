@@ -10,7 +10,7 @@ router.get("/chambre/search", async(req, res)=>{
         console.log("Received query parameters for rooms:", req.query);
 
         let queryStr = `
-            SELECT r.*
+            SELECT r.*, c.nomDeChaine
             FROM chambre r
             JOIN hotel h ON h.hotelid = r.hotelid
             JOIN address a ON h.addressID = a.addressID
