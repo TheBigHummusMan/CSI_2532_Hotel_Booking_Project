@@ -18,7 +18,7 @@ router.get("/chambre/search", async(req, res)=>{
             WHERE 1=1
         `;
 
-        let {ville, minRating,maxRating,adresseDeRue,minPrice,maxPrice,capacity}=req.query;
+        let {ville, minRating,maxRating,adresseDeRue,minPrice,maxPrice,capacity,checkinDate,checkoutDate }=req.query;
         let params = [];
         let paramIndex = 1;
 
@@ -58,6 +58,20 @@ router.get("/chambre/search", async(req, res)=>{
             params.push(parseFloat(capacity));
             paramIndex++;
         }
+
+        if (checkinDate && checkoutDate) {
+            queryStr += `
+                AND NOT EXISTS (
+                    SELECT 1 FROM reservation res
+                    WHERE res.hotelID = r.hotelID
+                    AND res.numDeChambre = r.numDeChambre
+                    AND res.checkinDate < $${paramIndex + 1}
+                    AND res.checkoutDate > $${paramIndex}
+                )
+            `;
+            params.push(checkoutDate, checkinDate); // Ensure correct order
+        }
+
 
         // debub logs
         //console.log("Generated SQL Query:", queryStr);
