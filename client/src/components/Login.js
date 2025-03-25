@@ -55,7 +55,7 @@ const Login = ({ setAuth }) => {
       >
         {/* Navigation Buttons */}
         <div className="d-flex justify-content-end mb-4">
-          <Link to="/employeelogin" className="btn btn-secondary mx-2 me-3">
+          <Link to="/employee-login" className="btn btn-secondary mx-2 me-3">
             Employee Login
           </Link>
           <Link to="/register" className="btn btn-primary">
