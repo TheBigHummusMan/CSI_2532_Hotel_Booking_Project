@@ -75,13 +75,13 @@ router.get("/chambre/search", async(req, res)=>{
 
 
         // debub logs
-        console.log("Generated SQL Query:", queryStr);
+        //console.log("Generated SQL Query:", queryStr);
         //console.log("Query Parameters:", params);
 
         // send back the room
         const chambre = await pool.query(queryStr, params);
         res.json(chambre.rows);
-        console.log(chambre.rows);
+        //console.log(chambre.rows);
     // error handleing
     } catch (err) {
         console.error(err.message)
