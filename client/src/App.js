@@ -1,20 +1,75 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
-import ProtectedRoute from './ProtectedRoute';
+import React, {Fragment, useState, useEffect} from 'react';
+import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+
+
+
+// importing components
+import Dashboard from './components/Dashboard';
+import Login from './components/Login';
+import Register from './components/Register';
+import EmployeeLogin from './components/EmployeeLogin';
+import Search from './components/Search';
+import Reservations from './components/Reservations';
+import EmployeeDashboard from './components/EmployeeDashboard';
+import PastReservations from './components/PastReservations';
+
 
 const App = () => {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const setAuth = (boolean) => {
+    setIsAuthenticated(boolean);
+  }
+
+
+  async function isAuth() {
+    try {
+
+      const response = await fetch('http://localhost:5000/auth/is-verify', {
+        method: 'GET',
+        headers: { token: localStorage.token }
+      });
+
+      const parseRes = await response.json();
+
+      parseRes === true ? setIsAuthenticated(true): setIsAuthenticated(false);
+
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  useEffect(() => {
+    isAuth();
+  })
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
-        </Route>
-      </Routes>
-    </Router>
+    <Fragment>
+      <Router>
+        <div className="container">
+          <Routes>
+            {/* Redirect root path ("/") to "/login" */}
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path = '/login' element = {!isAuthenticated ? <Login setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
+            <Route path = '/employee-login' element = {!isAuthenticated ? <EmployeeLogin setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
+            <Route path = '/register' element = {!isAuthenticated ? <Register setAuth={setAuth} /> : <Navigate to='/login'/>}/> 
+            {/* <Route path = '/dashboard' element = {isAuthenticated ? <Dashboard setAuth={setAuth} /> : <Navigate to = '/login'/>}/>*/} 
+            <Route path = '/dashboard' element = {<Dashboard setAuth={setAuth}/>}/>
+            <Route path = '/reservations' element = {<Reservations />}/>
+            <Route path = '/search' element = {<Search />}/>
+            {/*<Route path = '/employee-dashboard' element = {isAuthenticated ? <EmployeeDashboard setAuth={setAuth} /> : <Navigate to = '/employee-login'/>}/> */}
+            <Route path="/employee-dashboard" element={<EmployeeDashboard setAuth={setAuth} />} />
+            <Route path="/employee/past-reservations" element={<PastReservations />} />
+          </Routes>
+        </div>
+      </Router>
+    </Fragment>
   );
 };
+
+
 
 export default App;
