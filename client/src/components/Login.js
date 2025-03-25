@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
-import sampleimage from './hotelimg.png'; // Add an image
+import sampleimage from './images/hotelimg.png'; // Add an image
 
 
 const Login = ({ setAuth }) => {
@@ -79,7 +79,7 @@ const Login = ({ setAuth }) => {
                 src={sampleimage}
                 alt="Hotel Example"
                 className="img-fluid mb-4"
-                style={{ maxHeight: '200px', width: 'auto', margin: '0 auto' }}
+                style={{ maxHeight: '300px', width: 'auto', margin: '0 auto' }}
                 />
             </div>
 

@@ -5,12 +5,14 @@ const Search = () => {
   const [city, setCity] = useState('');
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [minRating, setMinRating] = useState(''); // Minimum rating filter
-  const [maxRating, setMaxRating] = useState(''); // Maximum rating filter
-  const [minPrice, setMinPrice] = useState(''); // Minimum price filter
-  const [maxPrice, setMaxPrice] = useState(''); // Maximum price filter
+  const [minCapacity, setMinCapacity] = useState('');
+  const [minRating, setMinRating] = useState(''); // Minimum rating (default: empty)
+  const [maxRating, setMaxRating] = useState(''); // Maximum rating (default: empty)
+  const [minPrice, setMinPrice] = useState(''); // Minimum price (default: empty)
+  const [maxPrice, setMaxPrice] = useState(''); // Maximum price (default: empty)
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [availableRooms, setAvailableRooms] = useState([]); // Store available rooms
+  const [isLoading, setIsLoading] = useState(false); // Loading state for search
   const navigate = useNavigate();
 
   // Sample list of cities (replace with a fetch call to get cities with hotels)
@@ -31,45 +33,45 @@ const Search = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    // debug to see parameter are getting passed
-    console.log('Searching for rooms:', {
-      city,
-      checkInDate,
-      checkOutDate,
-      capacity,
-      minRating,
-      maxRating,
-      minPrice,
-      maxPrice,
-    });
-
-    // get rooms from backend
     try {
+      // Build query parameters
       const queryParams = new URLSearchParams({
-        ville: city, // Backend expects 'ville', so ensure the key matches
-        checkinDate: new Date(checkInDate).toISOString(), 
+        ville: city.trim(), // Backend expects 'ville'
+        checkinDate: new Date(checkInDate).toISOString(),
         checkoutDate: new Date(checkOutDate).toISOString(),
-        capacity,
-        minRating,
-        maxRating,
-        minPrice,
-        maxPrice
+        capacity: minCapacity || '', // Optional field
+        minRating: minRating || '',
+        maxRating: maxRating || '',
+        minPrice: minPrice || '',
+        maxPrice: maxPrice || '',
       }).toString();
 
+      console.log('Generated Query Parameters:', queryParams);
 
-      console.log(queryParams);
-
-      //console.log("Generated Query URL:", `http://localhost:5000/chambre/search?${queryParams}`); // Debug
-      
+      // Fetch data from the backend
       const response = await fetch(`http://localhost:5000/chambre/search?${queryParams}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
       });
-      
-      // Handle displaying results here (you can store them in state or pass them to another component)
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Search Results:', data);
+
+      if (Array.isArray(data)) {
+        setAvailableRooms(data); // Save available rooms to state
+      } else {
+        setAvailableRooms([]); // Clear results if no rooms are found
+      }
     } catch (err) {
       console.error('Error fetching search results:', err.message);
+    } finally {
+      setIsLoading(false); // Stop loading spinner
     }
   };
 
@@ -167,13 +169,13 @@ const Search = () => {
             type="number"
             className="form-control"
             placeholder="e.g., 2"
-            value={capacity}
-            onChange={(e) => setCapacity(e.target.value)}
-            min="1" // Ensure the minimum value is at least 1
+            value={minCapacity}
+            onChange={(e) => setMinCapacity(e.target.value)}
+            min="1"
           />
         </div>
 
-        {/* Rating Filters */}
+        {/* Rating Range Inputs */}
         <div className="row mb-3">
           <div className="col-md-6">
             <label className="form-label">Minimum Rating (0-5)</label>
@@ -185,7 +187,7 @@ const Search = () => {
               onChange={(e) => setMinRating(e.target.value)}
               min="0"
               max="5"
-              step="0.1" // Allow decimal ratings (e.g., 4.5)
+              step="0.1"
             />
           </div>
           <div className="col-md-6">
@@ -198,12 +200,12 @@ const Search = () => {
               onChange={(e) => setMaxRating(e.target.value)}
               min="0"
               max="5"
-              step="0.1" // Allow decimal ratings (e.g., 4.5)
+              step="0.1"
             />
           </div>
         </div>
 
-        {/* Price Filters */}
+        {/* Price Range Inputs */}
         <div className="row mb-3">
           <div className="col-md-6">
             <label className="form-label">Minimum Price ($)</label>
@@ -213,7 +215,7 @@ const Search = () => {
               placeholder="e.g., 50"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              min="0" // Ensure the minimum value is at least 0
+              min="0"
             />
           </div>
           <div className="col-md-6">
@@ -224,7 +226,7 @@ const Search = () => {
               placeholder="e.g., 200"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              min="0" // Ensure the minimum value is at least 0
+              min="0"
             />
           </div>
         </div>
@@ -234,23 +236,59 @@ const Search = () => {
         </button>
       </form>
 
-      {/* Placeholder for Results List */}
+      {/* Display Available Rooms */}
       <div className="mt-4">
         <h5 className="text-center">Available Rooms</h5>
-        <div
-          style={{
-            border: '2px dashed #ccc',
-            borderRadius: '8px',
-            padding: '20px',
-            minHeight: '200px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#888',
-          }}
-        >
-          No results to display yet.
-        </div>
+
+        {isLoading ? (
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : availableRooms.length > 0 ? (
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Room Number</th>
+                <th>Hotel ID</th>
+                <th>Price (CAD)</th>
+                <th>Amenities</th>
+                <th>Capacity</th>
+                <th>View</th>
+                <th>Damages</th>
+              </tr>
+            </thead>
+            <tbody>
+              {availableRooms.map((room) => (
+                <tr key={room.numdechambre}>
+                  <td>{room.numdechambre}</td>
+                  <td>{room.hotelid}</td>
+                  <td>{room.prix}</td>
+                  <td>{room.commodites}</td>
+                  <td>{room.capacite}</td>
+                  <td>{room.vue}</td>
+                  <td>{room.domages || 'None'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div
+            style={{
+              border: '2px dashed #ccc',
+              borderRadius: '8px',
+              padding: '20px',
+              minHeight: '200px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#888',
+            }}
+          >
+            No rooms available for your search criteria.
+          </div>
+        )}
       </div>
     </div>
   );
