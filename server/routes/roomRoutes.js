@@ -7,7 +7,7 @@ const pool = require("../config/db");
 router.get("/chambre/search", async(req, res)=>{
     try {
         // debug for query parameters
-        console.log("Received query parameters for rooms:", req.query);
+        // console.log("Received query parameters for rooms:", req.query);
 
         let queryStr = `
             SELECT r.*, c.nomDeChaine
@@ -75,13 +75,15 @@ router.get("/chambre/search", async(req, res)=>{
 
 
         // debub logs
-        console.log("Generated SQL Query:", queryStr);
+        //console.log("Generated SQL Query:", queryStr);
         //console.log("Query Parameters:", params);
 
         // send back the room
         const chambre = await pool.query(queryStr, params);
         res.json(chambre.rows);
-        console.log(chambre.rows);
+        
+        // debugging
+        // console.log(chambre.rows);
     // error handleing
     } catch (err) {
         console.error(err.message)

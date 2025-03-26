@@ -15,6 +15,48 @@ const Search = () => {
   const [popupRoom, setPopupRoom] = useState(null); // State to manage popup visibility and content
   const navigate = useNavigate();
 
+  const handleBookNow = async (room) => {
+    // Prompt the user for confirmation
+    const isConfirmed = window.confirm(
+      `Are you sure you want to book Room #${room.numdechambre} at ${room.nomdechaine}?`
+    );
+  
+    if (isConfirmed) {
+      try {
+        // Assuming clientID is stored in the app's state or context
+        const clientID = 12345; // Replace this with the actual logged-in user's clientID (e.g., from auth context)
+  
+        // Prepare reservation data
+        const reservationData = {
+          clientid: clientID, // Include the logged-in user's clientID
+          hotelid: room.hotelid,
+          numdechambre: room.numdechambre,
+          checkindate: new Date(checkInDate).toISOString(),
+          checkoutdate: new Date(checkOutDate).toISOString(),
+        };
+  
+        // Send a POST request to create the reservation
+        const response = await fetch('http://localhost:5000/reservation/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(reservationData),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const result = await response.json();
+        console.log('Reservation Created:', result);
+  
+        // Redirect to the dashboard after successful booking
+        navigate('/dashboard');
+      } catch (err) {
+        console.error('Error creating reservation:', err.message);
+        alert('Failed to create reservation. Please try again.');
+      }
+    }
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -232,7 +274,7 @@ const Search = () => {
                       {/* Book Now Button */}
                       <button
                         className="btn btn-success btn-sm"
-                        /*onClick={() => handleBookNow(room)}*/
+                        onClick={() => handleBookNow(room)}
                       >
                         Book Now
                       </button>
