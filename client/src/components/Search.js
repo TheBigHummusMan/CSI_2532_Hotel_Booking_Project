@@ -6,51 +6,34 @@ const Search = () => {
   const [checkInDate, setCheckInDate] = useState('');
   const [checkOutDate, setCheckOutDate] = useState('');
   const [minCapacity, setMinCapacity] = useState('');
-  const [minRating, setMinRating] = useState(''); // Minimum rating (default: empty)
-  const [maxRating, setMaxRating] = useState(''); // Maximum rating (default: empty)
-  const [minPrice, setMinPrice] = useState(''); // Minimum price (default: empty)
-  const [maxPrice, setMaxPrice] = useState(''); // Maximum price (default: empty)
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [availableRooms, setAvailableRooms] = useState([]); // Store available rooms
-  const [isLoading, setIsLoading] = useState(false); // Loading state for search
+  const [minRating, setMinRating] = useState('');
+  const [maxRating, setMaxRating] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [availableRooms, setAvailableRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [popupRoom, setPopupRoom] = useState(null); // State to manage popup visibility and content
   const navigate = useNavigate();
 
-  // Sample list of cities (replace with a fetch call to get cities with hotels)
-  const cities = [
-    'Ottawa, Canada',
-    'Toronto, Canada',
-    'Montreal, Canada',
-    'Vancouver, Canada',
-    'New York, USA',
-    'London, UK',
-    'Paris, France',
-  ];
-
-  // Filter cities based on user input
-  const filteredCities = cities.filter((c) =>
-    c.toLowerCase().includes(city.toLowerCase())
-  );
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      // Build query parameters
       const queryParams = new URLSearchParams({
-        ville: city.trim(), // Backend expects 'ville'
+        ville: city.trim(),
         checkinDate: new Date(checkInDate).toISOString(),
         checkoutDate: new Date(checkOutDate).toISOString(),
-        capacity: minCapacity || '', // Optional field
+        capacity: minCapacity || '',
         minRating: minRating || '',
         maxRating: maxRating || '',
         minPrice: minPrice || '',
-        maxPrice: maxPrice || ''
+        maxPrice: maxPrice || '',
       }).toString();
 
       console.log('Generated Query Parameters:', queryParams);
 
-      // Fetch data from the backend
       const response = await fetch(`http://localhost:5000/chambre/search?${queryParams}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -64,25 +47,34 @@ const Search = () => {
       console.log('Search Results:', data);
 
       if (Array.isArray(data)) {
-        setAvailableRooms(data); // Save available rooms to state
+        setAvailableRooms(data);
       } else {
-        setAvailableRooms([]); // Clear results if no rooms are found
+        setAvailableRooms([]);
       }
     } catch (err) {
       console.error('Error fetching search results:', err.message);
     } finally {
-      setIsLoading(false); // Stop loading spinner
+      setIsLoading(false);
     }
+  };
+
+  // Function to show the popup with room details
+  const showPopup = (room) => {
+    setPopupRoom(room); // Set the room whose details should be displayed
+    console.log(room.commodites + " " + room.vue);
+    console.log(popupRoom);
+  };
+
+  // Function to close the popup
+  const closePopup = () => {
+    setPopupRoom(null); // Reset the popup state
   };
 
   return (
     <div className="container mt-4">
       {/* Return to Dashboard Button */}
       <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
-        <button
-          className="btn btn-secondary"
-          onClick={() => navigate('/dashboard')}
-        >
+        <button className="btn btn-secondary" onClick={() => navigate('/dashboard')}>
           Return to Dashboard
         </button>
       </div>
@@ -91,51 +83,16 @@ const Search = () => {
 
       {/* Search Form */}
       <form onSubmit={handleSearch}>
-        {/* City Input with Autocomplete */}
-        <div className="mb-3 position-relative">
+        {/* City Input */}
+        <div className="mb-3">
           <input
             type="text"
             className="form-control"
             placeholder="Enter city name"
             value={city}
-            onChange={(e) => {
-              setCity(e.target.value);
-              setShowSuggestions(true); // Show suggestions when typing
-            }}
-            onFocus={() => setShowSuggestions(true)} // Show suggestions on focus
+            onChange={(e) => setCity(e.target.value)}
             required
           />
-
-          {/* Autocomplete Suggestions */}
-          {showSuggestions && city.trim() !== '' && filteredCities.length > 0 && (
-            <div
-              className="position-absolute w-100 mt-1"
-              style={{
-                backgroundColor: '#fff',
-                border: '1px solid #ced4da',
-                borderRadius: '4px',
-                zIndex: 100,
-                maxHeight: '150px',
-                overflowY: 'auto',
-              }}
-            >
-              {filteredCities.map((c, index) => (
-                <div
-                  key={index}
-                  className="p-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => {
-                    setCity(c);
-                    setShowSuggestions(false);
-                  }}
-                  style={{
-                    borderBottom: index < filteredCities.length - 1 && '1px solid #eee',
-                  }}
-                >
-                  {c}
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Check-In and Check-Out Dates */}
@@ -230,7 +187,7 @@ const Search = () => {
             />
           </div>
         </div>
-        
+
         <button className="btn btn-dark w-100" type="submit">
           Search
         </button>
@@ -247,41 +204,77 @@ const Search = () => {
             </div>
           </div>
         ) : availableRooms.length > 0 ? (
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>Hotel Chain</th>
-                <th>Price (CAD)</th>
-                <th>Capacity</th>
-              </tr>
-            </thead>
-            <tbody>
-              {availableRooms.map((room) => (
-                <tr key={room.numdechambre}>
-                  <td>{room.nomdechaine}</td>
-                  <td>{room.prix}</td>
-                  <td>{room.capacite}</td>
+          <div className="table-responsive">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Hotel Chain</th>
+                  <th scope="col">Price (CAD)</th>
+                  <th scope="col">Capacity</th>
+                  <th scope="col">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {availableRooms.map((room) => (
+                  <tr key={room.numdechambre}>
+                    <td>{room.nomdechaine}</td>
+                    <td>{room.prix}</td>
+                    <td>{room.capacite}</td>
+                    <td>
+                      {/* Details Button */}
+                      <button
+                        className="btn btn-info btn-sm me-2 mx-3"
+                        onClick={() => showPopup(room)} // Show popup with room details
+                      >
+                        Details
+                      </button>
+
+                      {/* Book Now Button */}
+                      <button
+                        className="btn btn-success btn-sm"
+                        /*onClick={() => handleBookNow(room)}*/
+                      >
+                        Book Now
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
-          <div
-            style={{
-              border: '2px dashed #ccc',
-              borderRadius: '8px',
-              padding: '20px',
-              minHeight: '200px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#888',
-            }}
-          >
+          <div className="alert alert-info text-center" role="alert">
             No rooms available for your search criteria.
           </div>
         )}
       </div>
+
+      {/* Popup for Room Details */}
+      {popupRoom && (
+        <div
+          className="position-fixed w-100 h-100 d-flex justify-content-center align-items-center"
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+            zIndex: 1050,
+            top: 0,
+            left: 0,
+          }}
+        >
+          <div
+            className="bg-white p-4 rounded shadow"
+            style={{ maxWidth: '400px', width: '100%' }}
+          >
+            <h5 className="text-center mb-3">Room Details</h5>
+            <p><strong>Amenities:</strong> {popupRoom.commodites}</p>
+            <p><strong>View:</strong> {popupRoom.vue}</p>
+            <div className="text-center">
+              <button className="btn btn-secondary" onClick={closePopup}>
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
