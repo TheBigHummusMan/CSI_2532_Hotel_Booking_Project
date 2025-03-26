@@ -3,21 +3,29 @@ import { useNavigate } from 'react-router-dom';
 
 const Reservations = () => {
   const [reservations, setReservations] = useState([]);
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch reservations from the backend
     const fetchReservations = async () => {
       try {
-        const response = await fetch('http://localhost:5000/reservations', {
+        const response = await fetch('http://localhost:5000/reservation/get', {
           method: 'GET',
-          headers: { token: localStorage.token },
+          headers: {
+            'Content-Type': 'application/json',
+            token: localStorage.token, // Include the token for authentication
+          },
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
         setReservations(data);
       } catch (err) {
         console.error(err.message);
+        alert('Failed to fetch reservations. Please try again.');
       }
     };
 
@@ -32,17 +40,32 @@ const Reservations = () => {
           Return to Dashboard
         </button>
       </div>
+
       <h2 className="mb-4">My Reservations</h2>
+
       {reservations.length > 0 ? (
-        <ul className="list-group">
-          {reservations.map((reservation, index) => (
-            <li key={index} className="list-group-item">
-              <strong>Hotel:</strong> {reservation.hotelName},{' '}
-              <strong>City:</strong> {reservation.city},{' '}
-              <strong>Date:</strong> {reservation.date}
-            </li>
-          ))}
-        </ul>
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Hotel ID</th>
+              <th>Room Number</th>
+              <th>Check-In Date</th>
+              <th>Check-Out Date</th>
+              <th>Date Reserved</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reservations.map((reservation) => (
+              <tr key={reservation.reservationID}>
+                <td>{reservation.hotelid}</td>
+                <td>{reservation.numdechambre}</td>
+                <td>{new Date(reservation.checkindate).toLocaleDateString()}</td>
+                <td>{new Date(reservation.checkoutdate).toLocaleDateString()}</td>
+                <td>{new Date(reservation.datereservation).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       ) : (
         <p>No reservations found.</p>
       )}
