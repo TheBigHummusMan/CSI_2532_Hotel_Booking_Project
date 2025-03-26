@@ -25,7 +25,17 @@ router.post("/reservation/create", async (req, res) => {
 
 router.get("reservation/get",async(req,res)=>{
     try {
-        
+        let queryStr = `
+        SELECT * 
+        FROM reservation
+        WHERE 1=1
+    `;
+
+    const reservation = await pool.query(queryStr);
+    res.json(reservation.rows);
+
+    
+    
     } catch (err) {
         console.error(err.message);
         

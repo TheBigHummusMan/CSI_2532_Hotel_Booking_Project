@@ -81,9 +81,7 @@ router.get("/chambre/search", async(req, res)=>{
         // send back the room
         const chambre = await pool.query(queryStr, params);
         res.json(chambre.rows);
-        
-        // debugging
-        // console.log(chambre.rows);
+        //console.log(chambre.rows);
     // error handleing
     } catch (err) {
         console.error(err.message)
