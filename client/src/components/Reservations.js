@@ -9,7 +9,9 @@ const Reservations = () => {
     // Fetch reservations from the backend
     const fetchReservations = async () => {
       try {
-        const response = await fetch('http://localhost:5000/reservation/get', {
+        const clientid = 54321;
+
+        const response = await fetch(`http://localhost:5000/reservation/get?clientid=${clientid}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -47,7 +49,7 @@ const Reservations = () => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Hotel ID</th>
+              <th>Hotel Chain</th>
               <th>Room Number</th>
               <th>Check-In Date</th>
               <th>Check-Out Date</th>
@@ -56,8 +58,8 @@ const Reservations = () => {
           </thead>
           <tbody>
             {reservations.map((reservation) => (
-              <tr key={reservation.reservationID}>
-                <td>{reservation.hotelid}</td>
+              <tr key={reservation.reservationid}>
+                <td>{reservation.nomdechaine}</td>
                 <td>{reservation.numdechambre}</td>
                 <td>{new Date(reservation.checkindate).toLocaleDateString()}</td>
                 <td>{new Date(reservation.checkoutdate).toLocaleDateString()}</td>

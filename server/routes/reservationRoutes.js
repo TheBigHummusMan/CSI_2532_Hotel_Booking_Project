@@ -23,23 +23,35 @@ router.post("/reservation/create", async (req, res) => {
     }
   });
 
-router.get("reservation/get",async(req,res)=>{
+  router.get("/reservation/get", async (req, res) => {
     try {
-        let queryStr = `
-        SELECT * 
-        FROM reservation
-        WHERE 1=1
-    `;
+      // Extract clientID from query parameters (or authentication context)
+      const { clientid } = req.query;
+  
+      let reservations;
+  
+      if (clientid) {
+        // Case 1: Client requests their own reservations
+        reservations = await pool.query(
+          "SELECT r.reservationID,h.nomDeChaine,r.numDeChambre,r.checkinDate,r.checkoutDate,r.dateReservation FROM reservation r JOIN hotel h ON r.hotelID = h.hotelID WHERE r.clientID = $1 ORDER BY r.dateReservation DESC;",
+          [clientid]   
+        );
+      } else {
+        // Case 2: Employee requests all reservations
+        reservations = await pool.query(
+          "SELECT c.nom, r.hotelid, r.checkindate, r.checkoutdate, r.datereservation FROM reservation r JOIN client c ON r.clientid = c.nas ORDER BY r.datereservation DESC"  
+        );
+      }
+  
+      // debugging line
+      console.log("Reservations Data:", reservations.rows);
 
-    const reservation = await pool.query(queryStr);
-    res.json(reservation.rows);
-
-    
-    
+      // Send the reservations as a JSON response
+      res.status(200).json(reservations.rows);
     } catch (err) {
-        console.error(err.message);
-        
+      console.error(err.message);
+      res.status(500).send("Server error");
     }
-});
+  });
 
 module.exports = router;

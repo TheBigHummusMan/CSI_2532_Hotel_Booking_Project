@@ -11,7 +11,7 @@ const EmployeeDashboard = ({ setAuth }) => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const response = await fetch('http://localhost:5000/employee/reservations/current', {
+        const response = await fetch('http://localhost:5000/reservation/get', {
           headers: { token: localStorage.token }
         });
         
@@ -67,10 +67,10 @@ const EmployeeDashboard = ({ setAuth }) => {
           <tbody>
             {currentReservations.map(reservation => (
               <tr key={reservation.id}>
-                <td>{reservation.clientName}</td>
-                <td>{reservation.hotelName}</td>
-                <td>{reservation.checkInDate}</td>
-                <td>{reservation.checkOutDate}</td>
+                <td>{reservation.nom}</td>
+                <td>{reservation.hotelid}</td>
+                <td>{new Date(reservation.checkindate).toLocaleDateString()}</td>
+                <td>{new Date(reservation.checkoutdate).toLocaleDateString()}</td>
                 <td>{reservation.status}</td>
               </tr>
             ))}

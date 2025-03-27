@@ -24,7 +24,7 @@ const Search = () => {
     if (isConfirmed) {
       try {
         // Assuming clientID is stored in the app's state or context
-        const clientID = 12345; // Replace this with the actual logged-in user's clientID (e.g., from auth context)
+        const clientID = 54321; // Replace this with the actual logged-in user's clientID (e.g., from auth context)
   
         // Prepare reservation data
         const reservationData = {
