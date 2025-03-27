@@ -3,48 +3,85 @@ const router = express.Router();
 const pool = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
+const validInfo = require("../middleware/authorisation");
+
 
 // registering
-router.post("/register/client",async(req,res)=>{
+router.post("/register/client", validInfo, async (req, res) => {
     try {
-        const {nas,nom,password,email,ville,adressederue,codepostal} = req.body;
+        const { nas, nom, password, email, ville, adressederue, codepostal } = req.body;
 
-        // check to see if the user exists, if he does, throw an error
-        const user = await pool.query("SELECT * FROM client WHERE nas = $1 ",[nas]);
+        // Check if user exists
+        const user = await pool.query("SELECT * FROM client WHERE nas = $1", [nas]);
 
-        if (user.rows.length !== 0 ){
-            return res.status(401).send("user already exists");
-        };
+        if (user.rows.length !== 0) {
+            return res.status(401).json({ error: "User already exists" });
+        }
 
-        // encrypts the password
+        // Encrypt password
         const saltRound = 10;
         const salt = await bcrypt.genSalt(saltRound);
-        
-        const bcryptPassword = await bcrypt.hash(password,salt);
+        const bcryptPassword = await bcrypt.hash(password, salt);
 
-        //query to create address if it doesnt exist, then create the user with that address id, i do this to avoid having duplicate addresses in the db
-        const address = await pool.query("SELECT 1 FROM address WHERE ville = $1 AND adressederue = $2 AND codepostal = $3",
-            [ville, adressederue, codepostal]);
-        //if the address exists
-        if (address.rows.length !== 0){
-            const newUser = await pool.query("INSERT INTO client (nas, nom, addressid, password, email) VALUES($1, $2, $3, $4, $5) RETURNING *",
-                [nas, nom, address.rows[0].addressid.addressid, bcryptPassword, email]);
+        let addressId;
+        // Check if address exists
+        const address = await pool.query(
+            "SELECT addressid FROM address WHERE ville = $1 AND adressederue = $2 AND codepostal = $3",
+            [ville, adressederue, codepostal]
+        );
+
+        if (address.rows.length !== 0) {
+            addressId = address.rows[0].addressid;
+        } else {
+            // Create new address
+            const newAddress = await pool.query(
+                "INSERT INTO address (ville, adressederue, codepostal) VALUES($1, $2, $3) RETURNING addressid",
+                [ville, adressederue, codepostal]
+            );
+            addressId = newAddress.rows[0].addressid;
         }
-        else{
-            const newAddress = await pool.query("INSERT INTO Address (ville, adresseDeRue, codePostal) VALUES($1, $2, $3) RETURNING addressId",
-                [ville,adressederue,codepostal]);
 
-            const newUser = await pool.query("INSERT INTO client (nas, nom, addressid, password, email) VALUES($1, $2, $3, $4, $5) RETURNING *",
-                [nas, nom, newAddress.rows[0].addressid, bcryptPassword, email]);
-        }
+        // Create new user
+        const newUser = await pool.query(
+            "INSERT INTO client (nas, nom, addressid, password, email) VALUES($1, $2, $3, $4, $5) RETURNING *",
+            [nas, nom, addressId, bcryptPassword, email]
+        );
 
-        //res.json(newUser);
-
+        // Generate token
         const token = jwtGenerator(newUser.rows[0].nas);
-        res.json({token});
+        res.json({ token });
+
     } catch (err) {
         console.error(err.message);
-        res.status(500).send("server error");
+        res.status(500).json({ error: "Server error during registration" });
+    }
+});
+
+// login route
+router.post("/login/client",async(req,res)=>{
+    try {
+        const {email, password} = req.body
+
+        const user = await pool.query("SELECT * FROM client WHERE email = $1",
+            [email]
+        );
+
+        if (user.rows.length == 0){
+            return res.status(401).json("user doesn't exist");
+        };
+
+        const validPassword = await bcrypt.compare(password, user.rows[0].password);
+
+        if (!validPassword){
+            return res.status(401).json("password or email is incorrect");
+        }
+
+        const token = jwtGenerator(user.rows[0].nas);
+        res.json({ token });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: "Server error during registration" });
     }
 })
 
