@@ -1,5 +1,5 @@
 module.exports = function(req, res, next) {
-    const { email, password, name, nas, ville, adressederue, codepostal } = req.body;
+    const { email, password, nom, nas, ville, adressederue, codepostal } = req.body;
 
     function validEmail(userEmail) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
@@ -16,9 +16,9 @@ module.exports = function(req, res, next) {
 
     // Additional validation for registration
     if (req.path === "/register/client") {
-        if (!name || !nas || !ville || !adressederue || !codepostal) {
+        if (!nom || !nas || !ville || !adressederue || !codepostal) {
             return res.status(400).json({ 
-                error: "Registration requires: name, NAS, city, street address, and postal code" 
+                error: "Registration requires: name (nom), NAS, city, street address, and postal code" 
             });
         }
     }

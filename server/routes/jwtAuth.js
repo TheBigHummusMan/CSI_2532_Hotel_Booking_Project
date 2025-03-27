@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
-const validInfo = require("../middleware/authorisation");
+const validInfo = require("../middleware/validInfo");
 
 
 // registering
@@ -58,7 +58,7 @@ router.post("/register/client", validInfo, async (req, res) => {
 });
 
 // login route
-router.post("/login/client",async(req,res)=>{
+router.post("/login/client",validInfo,async(req,res)=>{
     try {
         const {email, password} = req.body
 
