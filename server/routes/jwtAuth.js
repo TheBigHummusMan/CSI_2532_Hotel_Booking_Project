@@ -4,6 +4,7 @@ const pool = require("../config/db");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 const validInfo = require("../middleware/validInfo");
+const authorization = require("../middleware/authorization");
 
 
 // registering
@@ -58,7 +59,7 @@ router.post("/register/client", validInfo, async (req, res) => {
 });
 
 // login route
-router.post("/login/client",validInfo,async(req,res)=>{
+router.post("/login/client", validInfo,async(req,res)=>{
     try {
         const {email, password} = req.body
 
@@ -83,6 +84,15 @@ router.post("/login/client",validInfo,async(req,res)=>{
         console.error(err.message);
         res.status(500).json({ error: "Server error during registration" });
     }
-})
+});
+
+router.get("/auth/is-verify", authorization, async(req, res)=>{
+    try {
+        res.json(true);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: "Server error during registration" });
+    }
+});
 
 module.exports = router;
