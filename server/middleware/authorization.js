@@ -8,7 +8,7 @@ module.exports = function(req, res, next) {
   
   //debug to get token
   const token = req.header("jwt_token");
-  console.log("recived token", token)
+  //console.log("recived token", token)
 
   // Check if not token
   if (!token) {
