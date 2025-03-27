@@ -57,12 +57,10 @@ const App = () => {
             <Route path = '/login' element = {!isAuthenticated ? <Login setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
             <Route path = '/employee-login' element = {!isAuthenticated ? <EmployeeLogin setAuth={setAuth} /> : <Navigate to="/dashboard" />} />
             <Route path = '/register' element = {!isAuthenticated ? <Register setAuth={setAuth} /> : <Navigate to='/login'/>}/> 
-            {/* <Route path = '/dashboard' element = {isAuthenticated ? <Dashboard setAuth={setAuth} /> : <Navigate to = '/login'/>}/>*/} 
-            <Route path = '/dashboard' element = {<Dashboard setAuth={setAuth}/>}/>
+            { <Route path = '/dashboard' element = {isAuthenticated ? <Dashboard setAuth={setAuth} /> : <Navigate to = '/login'/>}/>} 
             <Route path = '/reservations' element = {<Reservations />}/>
             <Route path = '/search' element = {<Search />}/>
-            {/*<Route path = '/employee-dashboard' element = {isAuthenticated ? <EmployeeDashboard setAuth={setAuth} /> : <Navigate to = '/employee-login'/>}/> */}
-            <Route path="/employee/employee-dashboard" element={<EmployeeDashboard setAuth={setAuth} />} />
+            {<Route path = '/employee/employee-dashboard' element = {isAuthenticated ? <EmployeeDashboard setAuth={setAuth} /> : <Navigate to = '/employee-login'/>}/> }
             <Route path="/employee/past-reservations" element={<PastReservations />} />
             <Route path="/employee/create-location" element={<LocationCreation  />}/>
           </Routes>
