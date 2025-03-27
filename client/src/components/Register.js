@@ -10,11 +10,11 @@ const Register = ({ setAuth }) => {
     password: '',
     nom: '',
     ville: '',
-    adresseDeRue: '',
-    codePostal: '',
+    adressederue: '',
+    codepostal: '',
   });
 
-  const { nas, email, password, nom, ville, adresseDeRue, codePostal } = inputs;
+  const { nas, email, password, nom, ville, adressederue, codepostal } = inputs;
 
   const onChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -30,17 +30,14 @@ const Register = ({ setAuth }) => {
         email,
         password,
         nom,
-        address: {
-          ville,
-          adresseDeRue,
-          codePostal,
-        },
-        
+        ville,
+        adressederue,
+        codepostal
       };
 
       console.log(JSON.stringify(body));
 
-      const response = await fetch('http://localhost:5000/auth/register', {
+      const response = await fetch('http://localhost:5000/register/client', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -54,7 +51,7 @@ const Register = ({ setAuth }) => {
         toast.success('Registered Successfully');
       } else {
         setAuth(false);
-        toast.error(parseRes);
+        toast.error(parseRes.error || 'Registration failed'); // Use a fallback message
       }
     } catch (err) {
       console.error(err.message);
@@ -123,10 +120,10 @@ const Register = ({ setAuth }) => {
         {/* Street Address Field */}
         <input
           type="text"
-          name="adresseDeRue"
+          name="adressederue"
           placeholder="Street Address"
           className="form-control my-3"
-          value={adresseDeRue}
+          value={adressederue}
           onChange={onChange}
           required
         />
@@ -134,10 +131,10 @@ const Register = ({ setAuth }) => {
         {/* Postal Code Field */}
         <input
           type="text"
-          name="codePostal"
+          name="codepostal"
           placeholder="Postal Code"
           className="form-control my-3"
-          value={codePostal}
+          value={codepostal}
           onChange={onChange}
           required
         />
