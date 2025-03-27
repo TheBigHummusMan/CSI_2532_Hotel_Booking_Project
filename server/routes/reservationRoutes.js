@@ -33,7 +33,7 @@ router.post("/reservation/create", async (req, res) => {
       if (clientid) {
         // Case 1: Client requests their own reservations
         reservations = await pool.query(
-          "SELECT r.reservationID,h.nomDeChaine,r.numDeChambre,r.checkinDate,r.checkoutDate,r.dateReservation FROM reservation r JOIN hotel h ON r.hotelID = h.hotelID WHERE r.clientID = $1 ORDER BY r.dateReservation DESC;",
+          "SELECT r.reservationID,h.nomDeChaine,r.numDeChambre,r.checkinDate,r.checkoutDate,r.datereservation FROM reservation r JOIN hotel h ON r.hotelID = h.hotelID WHERE r.clientID = $1 ORDER BY r.datereservation DESC;",
           [clientid]   
         );
       } else {

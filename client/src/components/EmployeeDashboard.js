@@ -58,7 +58,7 @@ const EmployeeDashboard = ({ setAuth }) => {
           <thead>
             <tr>
               <th>Client Name</th>
-              <th>Hotel</th>
+              <th>HotelID</th>
               <th>Check-In</th>
               <th>Check-Out</th>
               <th>Status</th>
