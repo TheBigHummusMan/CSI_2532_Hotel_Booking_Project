@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 const LocationCreation = () => {
   const [formData, setFormData] = useState({
-    clientID: '',
-    employeeID: JSON.parse(localStorage.getItem('user'))?.employeeID || '', // Logged-in employee ID
-    hotelID: '',
-    numDeChambre: '',
-    checkinDate: '',
-    checkoutDate: '',
+    clientid: '',
+    employeeid: '999', // hardcoded, to be fixed
+    hotelid: '',
+    numdechambre: '',
+    checkindate: '',
+    checkoutdate: '',
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -27,8 +27,8 @@ const LocationCreation = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.clientID) newErrors.clientID = 'Client ID is required';
-    if (!formData.hotelID) newErrors.hotelID = 'Hotel ID is required';
+    if (!formData.clientid) newErrors.clientid = 'Client id is required';
+    if (!formData.hotelid) newErrors.hotelid = 'Hotel id is required';
     if (!formData.numDeChambre) newErrors.numDeChambre = 'Room number is required';
     if (!formData.checkinDate) newErrors.checkinDate = 'Check-in date is required';
     if (!formData.checkoutDate) newErrors.checkoutDate = 'Check-out date is required';
@@ -64,7 +64,7 @@ const LocationCreation = () => {
       console.log('Location Created:', data);
 
       toast.success('Location created successfully!');
-      navigate('/employee/dashboard'); // Redirect to the dashboard
+      navigate('/employee/employee-dashboard'); // Redirect to the dashboard
     } catch (err) {
       console.error(err.message);
       toast.error('Failed to create location. Please try again.');
@@ -75,36 +75,36 @@ const LocationCreation = () => {
     <div className="container mt-5">
       <h2>Create a New Location</h2>
       <form onSubmit={handleSubmit} className="mt-4">
-        {/* Client ID */}
+        {/* Client id */}
         <div className="mb-3">
-          <label htmlFor="clientID" className="form-label">
-            Client ID:
+          <label htmlFor="clientid" className="form-label">
+            Client id:
           </label>
           <input
             type="number"
-            id="clientID"
-            name="clientID"
-            value={formData.clientID}
+            id="clientid"
+            name="clientid"
+            value={formData.clientid}
             onChange={handleChange}
-            className={`form-control ${errors.clientID ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.clientid ? 'is-invalid' : ''}`}
           />
-          {errors.clientID && <div className="invalid-feedback">{errors.clientID}</div>}
+          {errors.clientid && <div className="invalid-feedback">{errors.clientid}</div>}
         </div>
 
-        {/* Hotel ID */}
+        {/* Hotel id */}
         <div className="mb-3">
-          <label htmlFor="hotelID" className="form-label">
-            Hotel ID:
+          <label htmlFor="hotelid" className="form-label">
+            Hotel id:
           </label>
           <input
             type="number"
-            id="hotelID"
-            name="hotelID"
-            value={formData.hotelID}
+            id="hotelid"
+            name="hotelid"
+            value={formData.hotelid}
             onChange={handleChange}
-            className={`form-control ${errors.hotelID ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.hotelid ? 'is-invalid' : ''}`}
           />
-          {errors.hotelID && <div className="invalid-feedback">{errors.hotelID}</div>}
+          {errors.hotelid && <div className="invalid-feedback">{errors.hotelid}</div>}
         </div>
 
         {/* Room Number */}

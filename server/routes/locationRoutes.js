@@ -31,7 +31,7 @@ router.get("/location/exists", async (req, res) => {
 // Backend Route to Create a Location
 router.post("/location/create", async (req, res) => {
   try {
-    const { clientid, employeeid, hotelid, numDeChambre, checkinDate, checkoutDate } = req.body;
+    const { clientid, employeeid, hotelid, numdechambre, checkindate, checkoutdate } = req.body;
 
     // Insert the location into the database
     const newLocation = await pool.query(
@@ -40,7 +40,7 @@ router.post("/location/create", async (req, res) => {
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
       `,
-      [clientid, employeeid, hotelid, numDeChambre, checkinDate, checkoutDate]
+      [clientid, employeeid, hotelid, numdechambre, checkindate, checkoutdate]
     );
 
     res.status(201).json(newLocation.rows[0]);

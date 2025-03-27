@@ -40,27 +40,39 @@ router.post("/reservation/create", async (req, res) => {
       } else {
         const { employeeid } = req.query;
 
+        console.log("Received Employee ID:", employeeid); // Debugging log
+
+        // Fetch the employee's hotel ID
+        const employeeResult = await pool.query(
+          "SELECT hotelID FROM employe WHERE employeeID = $1",
+          [employeeid]
+        );
+
+        const hotelid = employeeResult.rows[0].hotelid;
+
         reservations = await pool.query(
           `
-          WITH employee_hotel AS (
-            SELECT hotelID
-            FROM employe
-            WHERE employeeID = $1
-          )
           SELECT 
-            c.nom, 
-            r.hotelid, 
-            r.checkindate, 
-            r.checkoutdate, 
-            r.datereservation,
-            r.numdechambre,
-            r.clientid
+            r.reservationID,
+            r.clientID,
+            c.nom,
+            r.hotelID,
+            r.numDeChambre,
+            r.checkinDate,
+            r.checkoutDate,
+            EXISTS (
+              SELECT 1 
+              FROM location l 
+              WHERE l.clientID = r.clientID 
+                AND l.hotelID = r.hotelID 
+                AND l.numDeChambre = r.numDeChambre
+            ) AS isCheckedIn
           FROM reservation r
-          JOIN client c ON r.clientid = c.nas
-          WHERE r.hotelid = (SELECT hotelID FROM employee_hotel)
-          ORDER BY r.datereservation DESC
+          INNER JOIN client c ON r.clientID = c.nas
+          WHERE r.hotelID = $1
+          ORDER BY r.dateReservation DESC;
           `,
-          [employeeid]
+          [hotelid]
         );
       }
   

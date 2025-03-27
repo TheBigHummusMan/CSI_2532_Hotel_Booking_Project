@@ -21,23 +21,7 @@ const EmployeeDashboard = ({ setAuth }) => {
         const data = await response.json();
         console.log("Received Reservations Data:", data); // Debugging log
   
-        // Check if a location exists for each reservation
-        const updatedData = await Promise.all(
-          data.map(async (reservation) => {
-            const locationResponse = await fetch(
-              `http://localhost:5000/location/exists?clientid=${reservation.clientid}&hotelid=${reservation.hotelid}&numdechambre=${reservation.numdechambre}`,
-              {
-                method: 'GET',
-                headers: { token: localStorage.token },
-              }
-            );
-  
-            const locationData = await locationResponse.json();
-            return { ...reservation, isCheckedIn: locationData.exists };
-          })
-        );
-  
-        setCurrentReservations(updatedData);
+        setCurrentReservations(data);
       } catch (err) {
         console.error(err.message);
       }
@@ -58,12 +42,12 @@ const EmployeeDashboard = ({ setAuth }) => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', token: localStorage.token },
           body: JSON.stringify({
-            clientID: reservation.clientid,
-            employeeID: 999, // Replace with the actual logged-in employee ID
-            hotelID: reservation.hotelid,
-            numDeChambre: reservation.numdechambre,
-            checkinDate: reservation.checkindate,
-            checkoutDate: reservation.checkoutdate,
+            clientid: reservation.clientid,
+            employeeid: 999, // Replace with the actual logged-in employee ID
+            hotelid: reservation.hotelid,
+            numdechambre: reservation.numdechambre,
+            checkindate: reservation.checkindate,
+            checkoutdate: reservation.checkoutdate,
           }),
         });
   
@@ -71,10 +55,10 @@ const EmployeeDashboard = ({ setAuth }) => {
           throw new Error("Failed to create location");
         }
   
-        // Update the local state to reflect the check-in
+        // Update the local state to reflect the check-in for the specific reservation
         setCurrentReservations((prevReservations) =>
           prevReservations.map((r) =>
-            r.reservationID === reservation.reservationID ? { ...r, isCheckedIn: true } : r
+            r.reservationid === reservation.reservationid ? { ...r, ischeckedin: true } : r
           )
         );
       } catch (err) {
@@ -134,13 +118,13 @@ const EmployeeDashboard = ({ setAuth }) => {
           </thead>
           <tbody>
             {currentReservations.map((reservation) => (
-              <tr key={reservation.reservationID}>
+              <tr key={reservation.reservationid}>
                 <td>{reservation.nom}</td>
                 <td>{reservation.hotelid}</td>
                 <td>{new Date(reservation.checkindate).toLocaleDateString()}</td>
                 <td>{new Date(reservation.checkoutdate).toLocaleDateString()}</td>
                 <td>
-                  {reservation.isCheckedIn ? (
+                  {reservation.ischeckedin ? (
                     <span>Checked In</span>
                   ) : (
                     <button

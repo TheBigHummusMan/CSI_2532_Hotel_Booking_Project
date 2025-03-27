@@ -62,7 +62,7 @@ const App = () => {
             <Route path = '/reservations' element = {<Reservations />}/>
             <Route path = '/search' element = {<Search />}/>
             {/*<Route path = '/employee-dashboard' element = {isAuthenticated ? <EmployeeDashboard setAuth={setAuth} /> : <Navigate to = '/employee-login'/>}/> */}
-            <Route path="/employee-dashboard" element={<EmployeeDashboard setAuth={setAuth} />} />
+            <Route path="/employee/employee-dashboard" element={<EmployeeDashboard setAuth={setAuth} />} />
             <Route path="/employee/past-reservations" element={<PastReservations />} />
             <Route path="/employee/create-location" element={<LocationCreation  />}/>
           </Routes>
