@@ -65,8 +65,8 @@ router.get("/chambre/search", async(req, res)=>{
                     SELECT 1 FROM reservation res
                     WHERE res.hotelID = r.hotelID
                     AND res.numDeChambre = r.numDeChambre
-                    AND res.checkinDate < $${paramIndex}
-                    AND res.checkoutDate > $${paramIndex + 1}
+                    AND res.checkinDate < $${paramIndex + 1}
+                    AND res.checkoutDate > $${paramIndex}
                 )
             `;
             params.push(new Date(checkinDate), new Date(checkoutDate)); //Convert to Date
@@ -75,8 +75,8 @@ router.get("/chambre/search", async(req, res)=>{
 
 
         // debub logs
-        //console.log("Generated SQL Query:", queryStr);
-        //console.log("Query Parameters:", params);
+        console.log("Generated SQL Query:", queryStr);
+        console.log("Query Parameters:", params);
 
         // send back the room
         const chambre = await pool.query(queryStr, params);
