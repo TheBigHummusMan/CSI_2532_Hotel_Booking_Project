@@ -66,6 +66,7 @@ router.post("/reservation/create", async (req, res) => {
               WHERE l.clientID = r.clientID 
                 AND l.hotelID = r.hotelID 
                 AND l.numDeChambre = r.numDeChambre
+                AND DATE(l.checkinDate) = DATE(r.checkinDate)
             ) AS isCheckedIn
           FROM reservation r
           INNER JOIN client c ON r.clientID = c.nas
