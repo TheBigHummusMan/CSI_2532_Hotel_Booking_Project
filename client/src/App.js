@@ -14,6 +14,7 @@ import Search from './components/Search';
 import Reservations from './components/Reservations';
 import EmployeeDashboard from './components/EmployeeDashboard';
 import PastReservations from './components/PastReservations';
+import LocationCreation from './components/LocationCreation';
 
 
 const App = () => {
@@ -63,6 +64,7 @@ const App = () => {
             {/*<Route path = '/employee-dashboard' element = {isAuthenticated ? <EmployeeDashboard setAuth={setAuth} /> : <Navigate to = '/employee-login'/>}/> */}
             <Route path="/employee-dashboard" element={<EmployeeDashboard setAuth={setAuth} />} />
             <Route path="/employee/past-reservations" element={<PastReservations />} />
+            <Route path="/employee/create-location" element={<LocationCreation  />}/>
           </Routes>
         </div>
       </Router>

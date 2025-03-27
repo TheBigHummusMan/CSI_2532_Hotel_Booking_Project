@@ -27,7 +27,8 @@ router.post("/reservation/create", async (req, res) => {
     try {
       // Extract clientID from query parameters (or authentication context)
       const { clientid } = req.query;
-  
+      
+
       let reservations;
   
       if (clientid) {
@@ -37,9 +38,29 @@ router.post("/reservation/create", async (req, res) => {
           [clientid]   
         );
       } else {
-        // Case 2: Employee requests all reservations
+        const { employeeid } = req.query;
+
         reservations = await pool.query(
-          "SELECT c.nom, r.hotelid, r.checkindate, r.checkoutdate, r.datereservation FROM reservation r JOIN client c ON r.clientid = c.nas ORDER BY r.datereservation DESC"  
+          `
+          WITH employee_hotel AS (
+            SELECT hotelID
+            FROM employe
+            WHERE employeeID = $1
+          )
+          SELECT 
+            c.nom, 
+            r.hotelid, 
+            r.checkindate, 
+            r.checkoutdate, 
+            r.datereservation,
+            r.numdechambre,
+            r.clientid
+          FROM reservation r
+          JOIN client c ON r.clientid = c.nas
+          WHERE r.hotelid = (SELECT hotelID FROM employee_hotel)
+          ORDER BY r.datereservation DESC
+          `,
+          [employeeid]
         );
       }
   
@@ -53,5 +74,7 @@ router.post("/reservation/create", async (req, res) => {
       res.status(500).send("Server error");
     }
   });
+
+  
 
 module.exports = router;
