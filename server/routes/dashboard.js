@@ -2,7 +2,7 @@ const router = require('express').Router();
 const pool = require('../config/db');
 const authorization = require('../middleware/authorization');
 
-router.get("/", authorization, async (req, res) => {
+router.get("/dashboard", authorization, async (req, res) => {
   try {
     console.log("Dashboard Route Hit"); // Log when the route is accessed
     console.log("User ID from Token:", req.user);

@@ -21,7 +21,7 @@ module.exports = function(req, res, next) {
     const verify = jwt.verify(token, process.env.jwtSecret);
     console.log("Verified Token:", verify); // Log the verified payload
 
-    req.user = verify.user;
+    req.user = verify.user.id;
     next();
   } catch (err) {
     res.status(401).json({ msg: "Token is not valid" });
