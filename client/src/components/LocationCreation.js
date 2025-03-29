@@ -52,7 +52,7 @@ const LocationCreation = () => {
     try {
       const response = await fetch('http://localhost:5000/location/create', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', token: localStorage.token },
+        headers: { 'Content-Type': 'application/json', jwt_token: localStorage.token },
         body: JSON.stringify(formData),
       });
       

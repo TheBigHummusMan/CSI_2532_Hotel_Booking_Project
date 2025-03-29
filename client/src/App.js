@@ -28,18 +28,17 @@ const App = () => {
 
   async function isAuth() {
     try {
-
       const response = await fetch('http://localhost:5000/auth/is-verify', {
         method: 'GET',
-        headers: { token: localStorage.token }
+        headers: { jwt_token: localStorage.token },
       });
-
+  
       const parseRes = await response.json();
-
-      parseRes === true ? setIsAuthenticated(true): setIsAuthenticated(false);
-
+      console.log("Token Verification Result:", parseRes); // Log the result
+  
+      setIsAuthenticated(parseRes === true);
     } catch (err) {
-      console.error(err.message);
+      console.error("Error during token verification:", err.message);
     }
   }
 

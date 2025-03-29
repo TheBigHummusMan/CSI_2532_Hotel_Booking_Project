@@ -15,7 +15,7 @@ const Reservations = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            token: localStorage.token, // Include the token for authentication
+            jwt_token: localStorage.token, // Include the token for authentication
           },
         });
 

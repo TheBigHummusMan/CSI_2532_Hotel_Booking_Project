@@ -48,6 +48,8 @@ router.post("/register/client", validInfo, async (req, res) => {
             [nas, nom, addressId, bcryptPassword, email]
         );
 
+        
+
         // Generate token
         const token = jwtGenerator(newUser.rows[0].nas);
         res.json({ token });
@@ -78,7 +80,7 @@ router.post("/login/client", validInfo,async(req,res)=>{
         }
 
         const token = jwtGenerator(user.rows[0].nas);
-        res.json({ token });
+        return res.json({ token });
 
     } catch (err) {
         console.error(err.message);

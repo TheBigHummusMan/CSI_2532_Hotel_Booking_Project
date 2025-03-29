@@ -9,7 +9,7 @@ const PastReservations = () => {
     const fetchReservations = async () => {
       try {
         const response = await fetch('http://localhost:5000/employee/reservations/past', {
-          headers: { token: localStorage.token }
+          headers: { jwt_token: localStorage.token }
         });
         
         const data = await response.json();

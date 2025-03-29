@@ -15,7 +15,7 @@ const EmployeeDashboard = ({ setAuth }) => {
       try {
         const response = await fetch(`http://localhost:5000/reservation/get?employeeid=${employeeid}`, {
           method: 'GET',
-          headers: { token: localStorage.token },
+          headers: { jwt_token: localStorage.token },
         });
   
         const data = await response.json();
@@ -40,7 +40,7 @@ const EmployeeDashboard = ({ setAuth }) => {
         // Create a location record in the database
         const response = await fetch("http://localhost:5000/location/create", {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', token: localStorage.token },
+          headers: { 'Content-Type': 'application/json', jwt_token: localStorage.token },
           body: JSON.stringify({
             clientid: reservation.clientid,
             employeeid: 999, // Replace with the actual logged-in employee ID

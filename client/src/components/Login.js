@@ -26,10 +26,12 @@ const Login = ({ setAuth }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+
       const parseRes = await response.json();
 
       if (parseRes.token) {
         localStorage.setItem('token', parseRes.token);
+        console.log("Token Stored in localStorage:", parseRes.token); // Log the token
         setAuth(true);
         toast.success('Logged in successfully');
       } else {

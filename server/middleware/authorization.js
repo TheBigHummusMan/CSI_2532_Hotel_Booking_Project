@@ -8,7 +8,7 @@ module.exports = function(req, res, next) {
   
   //debug to get token
   const token = req.header("jwt_token");
-  //console.log("recived token", token)
+  console.log("recived token", token)
 
   // Check if not token
   if (!token) {
@@ -19,6 +19,7 @@ module.exports = function(req, res, next) {
   try {
     //it is going to give use the user id (user:{id: user.id})
     const verify = jwt.verify(token, process.env.jwtSecret);
+    console.log("Verified Token:", verify); // Log the verified payload
 
     req.user = verify.user;
     next();

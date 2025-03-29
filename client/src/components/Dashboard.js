@@ -9,19 +9,23 @@ const Dashboard = ({setAuth}) => {
     const navigate = useNavigate();
 
     async function getName() {
-        try {
-            const response = await fetch('http://localhost:5000/dashboard/', {
-                method: 'GET', 
-                headers: {token: localStorage.token}
-
-            });
-
-            const parseRes = await response.json();
-
-            setName(parseRes.user_name);
-        } catch (err) {
-            console.error(err.message);
+      try {
+        const response = await fetch('http://localhost:5000/dashboard', {
+          method: 'GET',
+          headers: { jwt_token: localStorage.token }, // Send the token in the headers
+        });
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
+    
+        const parseRes = await response.json();
+        console.log("Response from /dashboard:", parseRes); // Log the response
+    
+        setName(parseRes.nom); // Use the correct field name from the backend
+      } catch (err) {
+        console.error(err.message);
+      }
     }
 
 
@@ -32,7 +36,7 @@ const Dashboard = ({setAuth}) => {
         toast.success('You logged out successfully!');
     }
 
-
+    
     useEffect(() => {
         getName();
     }, []);
