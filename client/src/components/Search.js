@@ -22,13 +22,9 @@ const Search = () => {
     );
   
     if (isConfirmed) {
-      try {
-        // Assuming clientID is stored in the app's state or context
-        const clientid = 54321; // Replace this with the actual logged-in user's clientID (e.g., from auth context)
-  
+      try {  
         // Prepare reservation data
         const reservationData = {
-          clientid: clientid, // Include the logged-in user's clientID
           hotelid: room.hotelid,
           numdechambre: room.numdechambre,
           checkindate: new Date(checkInDate).toISOString(),
@@ -38,7 +34,10 @@ const Search = () => {
         // Send a POST request to create the reservation
         const response = await fetch('http://localhost:5000/reservation/create', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            jwt_token: localStorage.token, 
+          },
           body: JSON.stringify(reservationData),
         });
   

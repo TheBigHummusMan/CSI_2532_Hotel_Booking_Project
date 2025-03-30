@@ -7,14 +7,14 @@ const authorization = require("../middleware/authorization");
 
 
 
-router.post("/reservation/create", async (req, res) => {
+router.post("/reservation/create", authorization, async (req, res) => {
     try {
-      const { clientid, hotelid, numdechambre, checkindate, checkoutdate } = req.body;
+      const { hotelid, numdechambre, checkindate, checkoutdate } = req.body;
   
       // Insert reservation into the database
       const newReservation = await pool.query(
         "INSERT INTO reservation (clientID, hotelID, numDeChambre, checkinDate, checkoutDate) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-        [clientid, hotelid, numdechambre, checkindate, checkoutdate]
+        [req.user, hotelid, numdechambre, checkindate, checkoutdate]
       );
   
       // Send a 201 response with the created reservation
