@@ -3,6 +3,8 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../config/db");
+const authorization = require("../middleware/authorization");
+
 
 
 router.post("/reservation/create", async (req, res) => {
@@ -23,65 +25,69 @@ router.post("/reservation/create", async (req, res) => {
     }
   });
 
-  router.get("/reservation/get", async (req, res) => {
+  router.get("/reservation/get-employee", async(req, res) => {
     try {
-      // Extract clientID from query parameters (or authentication context)
-      const { clientid } = req.query;
-      
+          console.log("Received Employee ID:", req.user); // Debugging log
 
-      let reservations;
-  
-      if (clientid) {
-        // Case 1: Client requests their own reservations
-        reservations = await pool.query(
+          // Fetch the employee's hotel ID
+          const employeeResult = await pool.query(
+            "SELECT hotelID FROM employe WHERE employeeID = $1",
+            [req.user]
+          );
+
+          const hotelid = employeeResult.rows[0].hotelid;
+
+          reservations = await pool.query(
+            `
+            SELECT 
+              r.reservationID,
+              r.clientID,
+              c.nom,
+              r.hotelID,
+              r.numDeChambre,
+              r.checkinDate,
+              r.checkoutDate,
+              EXISTS (
+                SELECT 1 
+                FROM location l 
+                WHERE l.clientID = r.clientID 
+                  AND l.hotelID = r.hotelID 
+                  AND l.numDeChambre = r.numDeChambre
+                  AND DATE(l.checkinDate) = DATE(r.checkinDate)
+              ) AS isCheckedIn
+            FROM reservation r
+            INNER JOIN client c ON r.clientID = c.nas
+            WHERE r.hotelID = $1
+            ORDER BY r.dateReservation DESC;
+            `,
+            [hotelid]
+          );
+
+                // debugging line
+        console.log("Reservations Data:", reservations.rows);
+
+        // Send the reservations as a JSON response
+        res.status(200).json(reservations.rows);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+  });
+
+  router.get("/reservation/get", authorization, async (req, res) => {
+    try {
+      console.log("NAS = " + req.user);
+      let reservations = await pool.query(
           "SELECT r.reservationID,h.nomDeChaine,r.numDeChambre,r.checkinDate,r.checkoutDate,r.datereservation FROM reservation r JOIN hotel h ON r.hotelID = h.hotelID WHERE r.clientID = $1 ORDER BY r.datereservation DESC;",
-          [clientid]   
+          [req.user]   
         );
-      } else {
-        const { employeeid } = req.query;
-
-        console.log("Received Employee ID:", employeeid); // Debugging log
-
-        // Fetch the employee's hotel ID
-        const employeeResult = await pool.query(
-          "SELECT hotelID FROM employe WHERE employeeID = $1",
-          [employeeid]
-        );
-
-        const hotelid = employeeResult.rows[0].hotelid;
-
-        reservations = await pool.query(
-          `
-          SELECT 
-            r.reservationID,
-            r.clientID,
-            c.nom,
-            r.hotelID,
-            r.numDeChambre,
-            r.checkinDate,
-            r.checkoutDate,
-            EXISTS (
-              SELECT 1 
-              FROM location l 
-              WHERE l.clientID = r.clientID 
-                AND l.hotelID = r.hotelID 
-                AND l.numDeChambre = r.numDeChambre
-                AND DATE(l.checkinDate) = DATE(r.checkinDate)
-            ) AS isCheckedIn
-          FROM reservation r
-          INNER JOIN client c ON r.clientID = c.nas
-          WHERE r.hotelID = $1
-          ORDER BY r.dateReservation DESC;
-          `,
-          [hotelid]
-        );
-      }
   
       // debugging line
       console.log("Reservations Data:", reservations.rows);
 
       // Send the reservations as a JSON response
       res.status(200).json(reservations.rows);
+
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");
