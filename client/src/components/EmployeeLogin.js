@@ -2,8 +2,10 @@ import React, {Fragment, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {toast} from 'react-toastify';
 import { ToastContainer } from 'react-toastify';  // Import ToastContainer
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeLogin = ({setAuth}) => {
+    const navigate = useNavigate();
 
     const [inputs, setInputs] = useState({
         email:'',
@@ -33,10 +35,8 @@ const EmployeeLogin = ({setAuth}) => {
             const parseRes = await response.json();
 
             if (parseRes.token) {
-
                 localStorage.setItem('token', parseRes.token);
-
-                setAuth(true);
+                navigate('/employee/employee-dashboard');
                 toast.success('Logged in successfully');
             } else {
                 setAuth(false);

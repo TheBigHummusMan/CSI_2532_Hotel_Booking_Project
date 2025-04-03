@@ -9,11 +9,9 @@ const EmployeeDashboard = ({ setAuth }) => {
 
   // Fetch current reservations
   useEffect(() => {
-    const fetchReservations = async () => {
-      let employeeid = 999; // Replace with the logged-in employee's ID
-  
+    const fetchReservations = async () => {  
       try {
-        const response = await fetch(`http://localhost:5000/reservation/get?employeeid=${employeeid}`, {
+        const response = await fetch(`http://localhost:5000/reservation/get-employee`, {
           method: 'GET',
           headers: { jwt_token: localStorage.token },
         });
@@ -32,8 +30,10 @@ const EmployeeDashboard = ({ setAuth }) => {
 
   // Handle Check-In Button Click
   const handleCheckIn = async (reservation) => {
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    const today = new Date().toLocaleDateString('en-CA').split('T')[0];
     const checkInDate = new Date(reservation.checkindate).toISOString().split('T')[0];
+    console.log(today);
+    console.log(checkInDate);
   
     if (checkInDate === today) {
       try {
@@ -73,8 +73,8 @@ const EmployeeDashboard = ({ setAuth }) => {
   const logout = (e) => {
     e.preventDefault();
     localStorage.removeItem('token');
-    setAuth(false);
     toast.success('Logged out successfully!');
+    navigate('/login');
   };
 
   return (

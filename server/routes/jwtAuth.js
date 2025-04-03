@@ -161,7 +161,7 @@ router.post("/login/employe", validInfo,async(req,res)=>{
             return res.status(401).json("password or email is incorrect");
         }
 
-        const token = jwtGenerator(user.rows[0].nas);
+        const token = jwtGenerator(user.rows[0].employeeid);
         return res.json({ token });
 
     } catch (err) {

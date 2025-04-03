@@ -32,7 +32,7 @@ router.post("/reservation/create", authorization, async (req, res) => {
           // Fetch the employee's hotel ID
           const employeeResult = await pool.query(
             "SELECT hotelID FROM employe WHERE employeeID = $1",
-            [req.user]
+            [999]
           );
 
           const hotelid = employeeResult.rows[0].hotelid;
@@ -73,6 +73,7 @@ router.post("/reservation/create", authorization, async (req, res) => {
       res.status(500).send("Server error");
     }
   });
+
 
   router.get("/reservation/get", authorization, async (req, res) => {
     try {

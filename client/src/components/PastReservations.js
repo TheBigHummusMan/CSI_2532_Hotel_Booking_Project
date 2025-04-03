@@ -26,7 +26,7 @@ const PastReservations = () => {
     <div className="container mt-4">
       <button 
         className="btn btn-secondary mb-3"
-        onClick={() => navigate('/employee-dashboard')}
+        onClick={() => navigate('/employee/employee-dashboard')}
       >
         Back to Dashboard
       </button>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const LocationCreation = () => {
   const [formData, setFormData] = useState({
     clientid: '',
-    employeeid: '999', // hardcoded, to be fixed
+    employeeid: 999, // Logged-in employee id
     hotelid: '',
     numdechambre: '',
     checkindate: '',
@@ -29,11 +29,11 @@ const LocationCreation = () => {
 
     if (!formData.clientid) newErrors.clientid = 'Client id is required';
     if (!formData.hotelid) newErrors.hotelid = 'Hotel id is required';
-    if (!formData.numDeChambre) newErrors.numDeChambre = 'Room number is required';
-    if (!formData.checkinDate) newErrors.checkinDate = 'Check-in date is required';
-    if (!formData.checkoutDate) newErrors.checkoutDate = 'Check-out date is required';
-    if (formData.checkinDate >= formData.checkoutDate)
-      newErrors.checkoutDate = 'Check-out date must be after check-in date';
+    if (!formData.numdechambre) newErrors.numdechambre = 'Room number is required';
+    if (!formData.checkindate) newErrors.checkindate = 'Check-in date is required';
+    if (!formData.checkoutdate) newErrors.checkoutdate = 'Check-out date is required';
+    if (formData.checkindate >= formData.checkoutdate)
+      newErrors.checkoutdate = 'Check-out date must be after check-in date';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Return true if no errors
@@ -52,7 +52,7 @@ const LocationCreation = () => {
     try {
       const response = await fetch('http://localhost:5000/location/create', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', jwt_token: localStorage.token },
+        headers: { 'Content-Type': 'application/json', token: localStorage.token },
         body: JSON.stringify(formData),
       });
       
@@ -109,50 +109,50 @@ const LocationCreation = () => {
 
         {/* Room Number */}
         <div className="mb-3">
-          <label htmlFor="numDeChambre" className="form-label">
+          <label htmlFor="numdechambre" className="form-label">
             Room Number:
           </label>
           <input
             type="number"
-            id="numDeChambre"
-            name="numDeChambre"
-            value={formData.numDeChambre}
+            id="numdechambre"
+            name="numdechambre"
+            value={formData.numdechambre}
             onChange={handleChange}
-            className={`form-control ${errors.numDeChambre ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.numdechambre ? 'is-invalid' : ''}`}
           />
-          {errors.numDeChambre && <div className="invalid-feedback">{errors.numDeChambre}</div>}
+          {errors.numdechambre && <div className="invalid-feedback">{errors.numdechambre}</div>}
         </div>
 
         {/* Check-In Date */}
         <div className="mb-3">
-          <label htmlFor="checkinDate" className="form-label">
+          <label htmlFor="checkindate" className="form-label">
             Check-In Date:
           </label>
           <input
             type="date"
-            id="checkinDate"
-            name="checkinDate"
-            value={formData.checkinDate}
+            id="checkindate"
+            name="checkindate"
+            value={formData.checkindate}
             onChange={handleChange}
-            className={`form-control ${errors.checkinDate ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.checkindate ? 'is-invalid' : ''}`}
           />
-          {errors.checkinDate && <div className="invalid-feedback">{errors.checkinDate}</div>}
+          {errors.checkindate && <div className="invalid-feedback">{errors.checkindate}</div>}
         </div>
 
         {/* Check-Out Date */}
         <div className="mb-3">
-          <label htmlFor="checkoutDate" className="form-label">
+          <label htmlFor="checkoutdate" className="form-label">
             Check-Out Date:
           </label>
           <input
             type="date"
-            id="checkoutDate"
-            name="checkoutDate"
-            value={formData.checkoutDate}
+            id="checkoutdate"
+            name="checkoutdate"
+            value={formData.checkoutdate}
             onChange={handleChange}
-            className={`form-control ${errors.checkoutDate ? 'is-invalid' : ''}`}
+            className={`form-control ${errors.checkoutdate ? 'is-invalid' : ''}`}
           />
-          {errors.checkoutDate && <div className="invalid-feedback">{errors.checkoutDate}</div>}
+          {errors.checkoutdate && <div className="invalid-feedback">{errors.checkoutdate}</div>}
         </div>
 
         {/* Submit Button */}

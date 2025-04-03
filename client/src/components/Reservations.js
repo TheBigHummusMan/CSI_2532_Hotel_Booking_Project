@@ -9,9 +9,8 @@ const Reservations = () => {
     // Fetch reservations from the backend
     const fetchReservations = async () => {
       try {
-        const clientid = 54321;
 
-        const response = await fetch(`http://localhost:5000/reservation/get?clientid=${clientid}`, {
+        const response = await fetch(`http://localhost:5000/reservation/get`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -40,7 +40,7 @@ router.post("/location/create", async (req, res) => {
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
       `,
-      [clientid, employeeid, hotelid, numdechambre, checkindate, checkoutdate]
+      [clientid, 999, hotelid, numdechambre, checkindate, checkoutdate]
     );
 
     res.status(201).json(newLocation.rows[0]);
