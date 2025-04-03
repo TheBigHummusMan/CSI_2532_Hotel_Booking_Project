@@ -10,7 +10,7 @@ const Dashboard = ({setAuth}) => {
 
     async function getName() {
       try {
-        const response = await fetch('http://localhost:5000/dashboard', {
+        const response = await fetch('http://localhost:5000/dashboard/client', {
           method: 'GET',
           headers: { jwt_token: localStorage.token }, // Send the token in the headers
         });
