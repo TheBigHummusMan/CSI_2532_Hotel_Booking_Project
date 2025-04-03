@@ -162,7 +162,7 @@ const Search = () => {
 
         {/* Minimum Capacity Input */}
         <div className="mb-3">
-          <label className="form-label">Minimum Capacity</label>
+          <label className="form-label">Capacity</label>
           <input
             type="number"
             className="form-control"

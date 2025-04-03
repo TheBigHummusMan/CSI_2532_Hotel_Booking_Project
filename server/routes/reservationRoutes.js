@@ -25,19 +25,23 @@ router.post("/reservation/create", authorization, async (req, res) => {
     }
   });
 
-  router.get("/reservation/get-employee", async(req, res) => {
+  router.get("/reservation/get-employee", authorization, async(req, res) => {
     try {
           console.log("Received Employee ID:", req.user); // Debugging log
 
           // Fetch the employee's hotel ID
           const employeeResult = await pool.query(
             "SELECT hotelID FROM employe WHERE employeeID = $1",
-            [999]
+            [req.user] // Fixed: using req.user from authorization middleware
           );
+
+          if (employeeResult.rows.length === 0) {
+            return res.status(404).json({ error: "Employee not found" });
+          }
 
           const hotelid = employeeResult.rows[0].hotelid;
 
-          reservations = await pool.query(
+          const reservations = await pool.query(
             `
             SELECT 
               r.reservationID,
@@ -47,6 +51,7 @@ router.post("/reservation/create", authorization, async (req, res) => {
               r.numDeChambre,
               r.checkinDate,
               r.checkoutDate,
+              r.dateReservation,
               EXISTS (
                 SELECT 1 
                 FROM location l 
@@ -57,22 +62,20 @@ router.post("/reservation/create", authorization, async (req, res) => {
               ) AS isCheckedIn
             FROM reservation r
             INNER JOIN client c ON r.clientID = c.nas
-            WHERE r.hotelID = $1
+            WHERE r.hotelID = $1 AND r.checkindate >= CURRENT_DATE
             ORDER BY r.dateReservation DESC;
             `,
             [hotelid]
           );
 
-                // debugging line
-        console.log("Reservations Data:", reservations.rows);
-
-        // Send the reservations as a JSON response
-        res.status(200).json(reservations.rows);
+          console.log("Reservations Data:", reservations.rows);
+          res.status(200).json(reservations.rows);
+          
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server error");
+      res.status(500).json({ error: "Server error" }); // Better error response
     }
-  });
+});
 
 
   router.get("/reservation/get", authorization, async (req, res) => {

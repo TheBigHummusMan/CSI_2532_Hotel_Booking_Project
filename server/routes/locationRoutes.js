@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../config/db");
+const authorization = require("../middleware/authorization");
 
 // Backend Route to Check if a Location Exists
 router.get("/location/exists", async (req, res) => {
@@ -29,7 +30,7 @@ router.get("/location/exists", async (req, res) => {
 });
 
 // Backend Route to Create a Location
-router.post("/location/create", async (req, res) => {
+router.post("/location/create",authorization, async (req, res) => {
   try {
     const { clientid, employeeid, hotelid, numdechambre, checkindate, checkoutdate } = req.body;
 
@@ -40,7 +41,7 @@ router.post("/location/create", async (req, res) => {
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
       `,
-      [clientid, 999, hotelid, numdechambre, checkindate, checkoutdate]
+      [clientid, employeeid, hotelid, numdechambre, checkindate, checkoutdate]
     );
 
     res.status(201).json(newLocation.rows[0]);
