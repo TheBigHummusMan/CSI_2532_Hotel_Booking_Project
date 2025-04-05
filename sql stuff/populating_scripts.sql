@@ -219,7 +219,6 @@ VALUES
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO hotel (nombredechambres, numtelephone, addressid, nomDeChaine, email)
 VALUES 
-    (5, '6045559999', 5, 'ChaineA', 'contact@chainea.com'),
     (6, '4031112222', 6, 'ChaineB', 'info@chaineb.net'),
     (6, '7801234567', 7, 'ChaineC', 'reservations@chainec.org'),
     (7, '2045551234', 8, 'ChaineD', 'support@chained.com'),
@@ -259,7 +258,7 @@ VALUES
     (5, '4035551234', 42, 'ChaineC', 'stay@chainec.org'),
     (6, '7805552345', 43, 'ChaineD', 'roomservice@chained.com'),
     (5, '2045556789', 44, 'ChaineE', 'guestcare@chainee.ca'),
-    (7, '4185559876', 45, 'ChaineA', 'support@chainea.com');
+    (5, '6045559999', 45, 'ChaineA', 'contact@chainea.com');
 
 
 
@@ -539,14 +538,6 @@ VALUES
 (4, 40, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
 (5, 40, 140, 'wifi, stationnement, sèche-cheveux', 4, 'lac', null),
 
-(1, 41, 100, 'wifi, stationnement, café/thé', 2, 'lac', null),
-(2, 41, 120, 'wifi, dejeuner, animaux', 3, 'ville', null),
-(3, 41, 110, 'wifi, stationnement, sèche-cheveux', 2, 'mer', null),
-(4, 41, 130, 'wifi, dejeuner, café/thé', 3, 'ocean', null),
-(5, 41, 140, 'wifi, stationnement, café/thé', 4, 'lac', null),
-(6, 41, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-(7, 41, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
-
 -- extra rooms
 (6, 12, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
 (6, 13, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null),
@@ -558,6 +549,94 @@ VALUES
 (6, 39, 160, 'wifi, dejeuner, stationnement', 2, 'ville', null);
 
 
+
+
+insert into address(ville, adresseDeRue, codePostal)
+values 
+('Ottawa', '234 ville road', '2b4 5b2'),
+('Toronto', '123 ville road', '3b5 6b3'),
+('Edmonton', '543 ville road', '2s4 5f2'),
+('Vancouver', '775 ville road', '2h4 4n2'),
+('Halifax', '876 ville road', '2m2 6m2'),
+('Calgary', '111 ville road', '1a1 1a1'),
+('Montreal', '222 ville road', '2b2 2b2'),
+('Quebec City', '333 ville road', '3c3 3c3'),
+('Winnipeg', '444 ville road', '4d4 4d4'),
+('Victoria', '555 ville road', '5e5 5e5'),
+('Regina', '666 ville road', '6f6 6f6'),
+('Saskatoon', '777 ville road', '7g7 7g7'),
+('St. John''s', '888 ville road', '8h8 8h8'),
+('Charlottetown', '999 ville road', '9i9 9i9'),
+('Fredericton', '101 ville road', '1j1 1j1'),
+('Whitehorse', '202 ville road', '2k2 2k2'),
+('Yellowknife', '303 ville road', '3l3 3l3'),
+('Iqaluit', '404 ville road', '4m4 4m4'),
+('London', '505 ville road', '5n5 5n5'),
+('Hamilton', '606 ville road', '6o6 6o6'),
+('Kitchener', '707 ville road', '7p7 7p7'),
+('Windsor', '808 ville road', '8q8 8q8'),
+('Oshawa', '909 ville road', '9r9 9r9'),
+('Barrie', '110 ville road', '1s1 1s1'),
+('Kingston', '220 ville road', '2t2 2t2'),
+('Guelph', '330 ville road', '3u3 3u3'),
+('Cambridge', '440 ville road', '4v4 4v4'),
+('Waterloo', '550 ville road', '5w5 5w5'),
+('Brantford', '660 ville road', '6x6 6x6'),
+('Niagara Falls', '770 ville road', '7y7 7y7'),
+('Thunder Bay', '880 ville road', '8z8 8z8'),
+('Sudbury', '990 ville road', '9a9 9a9'),
+('Sarnia', '112 ville road', '1b1 1b1'),
+('Peterborough', '223 ville road', '2c2 2c2'),
+('Belleville', '334 ville road', '3d3 3d3'),
+('North Bay', '445 ville road', '4e4 4e4'),
+('Cornwall', '556 ville road', '5f5 5f5'),
+('Timmins', '667 ville road', '6g6 6g6'),
+('Orillia', '778 ville road', '7h7 7h7'),
+('Woodstock', '889 ville road', '8i8 8i8');
+
+
+
+insert into employe (email, password, nom, addressID, hotelID) 
+values 
+('empa@gmail.om', 'empapass', 'Alan', 47, 1),
+('empb@gmail.om', 'empbpass', 'Bob', 48, 2),
+('empc@gmail.om', 'empcpass', 'Charles', 49, 3),
+('empd@gmail.om', 'empdpass', 'Devan', 50, 4),
+('empe@gmail.om', 'empepass', 'Ethan', 51, 5),
+('empf@gmail.om', 'empfpass', 'Frank', 52, 6),
+('empg@gmail.om', 'empgpass', 'George', 53, 7),
+('emph@gmail.om', 'emphpass', 'Henry', 54, 8),
+('empi@gmail.om', 'empipass', 'Ian', 55, 9),
+('empj@gmail.om', 'empjpass', 'Jack', 56, 10),
+('empk@gmail.om', 'empkpass', 'Kevin', 57, 11),
+('empl@gmail.om', 'emplpass', 'Liam', 58, 12),
+('empm@gmail.om', 'empmpass', 'Mike', 59, 13),
+('empn@gmail.om', 'empnpass', 'Nathan', 60, 14),
+('empo@gmail.om', 'empopass', 'Oscar', 61, 15),
+('empp@gmail.om', 'empppass', 'Peter', 62, 16),
+('empq@gmail.om', 'empqpass', 'Quinn', 63, 17),
+('empr@gmail.om', 'emprpass', 'Ryan', 64, 18),
+('emps@gmail.om', 'empspass', 'Steve', 65, 19),
+('empt@gmail.om', 'emptpass', 'Tom', 66, 20),
+('empu@gmail.om', 'empupass', 'Umar', 67, 21),
+('empv@gmail.om', 'empvpass', 'Victor', 68, 22),
+('empw@gmail.om', 'empwpass', 'William', 69, 23),
+('empx@gmail.om', 'empxpass', 'Xavier', 70, 24),
+('empy@gmail.om', 'empypass', 'Yusuf', 71, 25),
+('empz@gmail.om', 'empzpass', 'Zack', 72, 26),
+('empaa@gmail.om', 'empaapass', 'Aaron', 73, 27),
+('empab@gmail.om', 'empabpass', 'Brian', 74, 28),
+('empac@gmail.om', 'empacpass', 'Chris', 75, 29),
+('empad@gmail.om', 'empadpass', 'David', 76, 30),
+('empae@gmail.om', 'empaepass', 'Eric', 77, 31),
+('empaf@gmail.om', 'empafpass', 'Fred', 78, 32),
+('empag@gmail.om', 'empagpass', 'Greg', 79, 33),
+('empah@gmail.om', 'empahpass', 'Harry', 80, 34),
+('empai@gmail.om', 'empaipass', 'Ivan', 81, 35),
+('empaj@gmail.om', 'empajpass', 'John', 82, 36),
+('empak@gmail.om', 'empakpass', 'Kyle', 83, 37),
+('empal@gmail.om', 'empalpass', 'Leo', 84, 38),
+('empam@gmail.om', 'empampass', 'Mark', 85, 39);
 
 
 
