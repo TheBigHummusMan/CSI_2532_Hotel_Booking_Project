@@ -731,3 +731,28 @@ FOR EACH ROW EXECUTE FUNCTION prevent_duplicate_phone_numbers();
 ------------
 
 CREATE INDEX idx_reservation_dates ON reservation (hotelID, numDeChambre, checkinDate, checkoutDate);
+
+CREATE INDEX idx_address_ville ON address (ville);
+
+CREATE INDEX idx_chambre_price_capacity ON chambre (prix, capacite);
+
+---------
+--Views--
+---------
+
+
+
+
+CREATE VIEW AvailableRoomsPerCity AS
+SELECT a.ville AS City, COUNT(r.numDeChambre) AS AvailableRoomCount
+FROM chambre r
+JOIN hotel h ON r.hotelID = h.hotelID
+JOIN address a ON h.addressID = a.addressID
+WHERE NOT EXISTS (
+    SELECT 1 FROM reservation res
+    WHERE res.hotelID = r.hotelID
+    AND res.numDeChambre = r.numDeChambre
+    AND CURRENT_DATE BETWEEN res.checkinDate AND res.checkoutDate
+)
+GROUP BY a.ville;
+
