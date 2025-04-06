@@ -24,7 +24,7 @@ clients can also see all of the reservations that they have made.
 Employes cannot create accounts, there is one account per hotel, for simplicity sake, all their passswords are empapass, see the table in the populating scipt for the emails and hotel numbers
 Once logged in, employees can see all reservations that have not passed in date to their specific hotel.
 Beside the resservations, they can turn it into a location if the current date is the checkin date (when testing, make resservations on the current day to test this functionality)
-Employees can also create locations manually.
+Employees can also create locations manually. (might be broken, wasnt tested)
 
 ## Not implemented
 The past resservationm button doesnt work.

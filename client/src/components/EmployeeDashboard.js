@@ -31,9 +31,9 @@ const EmployeeDashboard = () => {
 
   // Handle Check-In
   const handleCheckIn = async (reservation) => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date(new Date().getTime() - 4 * 60 * 60 * 1000).toISOString().split('T')[0];
     const checkInDate = new Date(reservation.checkindate).toISOString().split('T')[0];
-    
+
     if (checkInDate === today) {
       try {
         // Get the actual employee ID from your auth system

@@ -250,6 +250,7 @@ const Search = () => {
               <thead>
                 <tr>
                   <th scope="col">Hotel Chain</th>
+                  <th scope="col">Hotel number</th>
                   <th scope="col">Price (CAD)</th>
                   <th scope="col">Capacity</th>
                   <th scope="col">Actions</th>
@@ -259,6 +260,7 @@ const Search = () => {
                 {availableRooms.map((room) => (
                   <tr key={room.numdechambre}>
                     <td>{room.nomdechaine}</td>
+                    <td>{room.hotelid}</td>
                     <td>{room.prix}</td>
                     <td>{room.capacite}</td>
                     <td>
