@@ -21,12 +21,12 @@ Only rooms that havent been booked for their stay will show.
 clients can also see all of the reservations that they have made.
 
 ### Employe:
-Employes cannot create accounts, there is one account per hotel, for simplicity sake, all their passswords are empapass, see the table in the populating scipt for the emails and hotel numbers
+Employes cannot create accounts, there is one account per hotel, for simplicity sake, all their passswords are in the populating script file, see the table in the populating scipt for the emails, passwords and hotel numbers
 Once logged in, employees can see all reservations that have not passed in date to their specific hotel.
 Beside the resservations, they can turn it into a location if the current date is the checkin date (when testing, make resservations on the current day to test this functionality)
 Employees can also create locations manually. (might be broken, wasnt tested)
 
 ## Not implemented
-The past resservationm button doesnt work.
 Views have been implemented but arent used anywhere on the website.
+when you logout as an employe, you see the cliet view, you can just logout
 We were only two people in the group :(

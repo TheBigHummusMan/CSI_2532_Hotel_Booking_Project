@@ -8,11 +8,14 @@ const PastReservations = () => {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const response = await fetch('http://localhost:5000/employee/reservations/past', {
+        const response = await fetch('http://localhost:5000/employee/location/past', {
           headers: { jwt_token: localStorage.token }
         });
         
+        if (!response.ok) throw new Error('Failed to fetch reservations');
+
         const data = await response.json();
+
         setPastReservations(data);
       } catch (err) {
         console.error(err.message);
@@ -36,20 +39,18 @@ const PastReservations = () => {
         <thead>
           <tr>
             <th>Client Name</th>
-            <th>Hotel</th>
+            <th>Room Number</th>
             <th>Check-In</th>
             <th>Check-Out</th>
-            <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          {pastReservations.map(reservation => (
-            <tr key={reservation.id}>
-              <td>{reservation.clientName}</td>
-              <td>{reservation.hotelName}</td>
-              <td>{reservation.checkInDate}</td>
-              <td>{reservation.checkOutDate}</td>
-              <td>{reservation.status}</td>
+          {pastReservations.map(location => (
+            <tr key={location.id}>
+              <td>{location.nom}</td>
+              <td>{location.numdechambre}</td>
+              <td>{new Date(location.checkindate).toLocaleDateString()}</td>
+              <td>{new Date(location.checkoutdate).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>

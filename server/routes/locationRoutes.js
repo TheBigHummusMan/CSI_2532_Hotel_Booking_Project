@@ -4,25 +4,44 @@ const pool = require("../config/db");
 const authorization = require("../middleware/authorization");
 
 // Backend Route to Check if a Location Exists
-router.get("/location/exists", async (req, res) => {
+router.get("/employee/location/past",authorization, async (req, res) => {
   try {
-    const { clientid, hotelid, numdechambre } = req.query;
 
-    // Validate query parameters
-    if (!clientid || !hotelid || !numdechambre) {
-      return res.status(400).send("Missing required parameters");
-    }
-
-    // Query the location table to check if a location exists
-    const result = await pool.query(
-      `
-      SELECT * FROM location 
-      WHERE clientID = $1 AND hotelID = $2 AND numDeChambre = $3
-      `,
-      [clientid, hotelid, numdechambre]
+    const employeeResult = await pool.query(
+      "SELECT hotelID FROM employe WHERE employeeID = $1",
+      [req.user] // Fixed: using req.user from authorization middleware
     );
 
-    res.status(200).json({ exists: result.rows.length > 0 });
+    // check to see if we got an employe id
+    if (employeeResult.rows.length === 0) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+
+    const hotelid = employeeResult.rows[0].hotelid;
+    // Query the location table to check if a location exists
+
+    const result = await pool.query(
+      `SELECT 
+        l.locationid,
+        l.checkindate,
+        l.checkoutdate,
+        l.numdechambre,
+        c.nas,
+        c.nom,
+        c.email,
+        h.hotelid
+       FROM location l
+       JOIN client c ON l.clientid = c.nas
+       JOIN hotel h ON l.hotelid = h.hotelid
+       WHERE l.hotelid = $1
+       ORDER BY l.checkoutdate DESC`,
+      [hotelid]
+    );
+
+    //debug line
+    //console.log(result.rows);
+
+    res.status(200).json(result.rows);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

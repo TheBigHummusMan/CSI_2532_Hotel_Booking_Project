@@ -115,7 +115,7 @@ const EmployeeDashboard = () => {
           className="btn btn-dark w-100 mx-2"
           onClick={() => navigate('/employee/past-reservations')}
         >
-          View Past Rentals
+          View All Rentals
         </button>
         <button
           className="btn btn-dark w-100"
